@@ -126,6 +126,8 @@
     .main-content img {
       max-width: 300px;
       opacity: 0.8;
+      display: block;
+      margin: 0 auto; /* 중앙 정렬 */
     }
     .prompt-box {
       width: 100%;
@@ -135,9 +137,15 @@
       border-radius: 8px;
       box-shadow: 0 0 4px rgba(0,0,0,0.1);
       user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .prompt-box div {
+      flex: 1;
+      white-space: pre-wrap;
     }
     .prompt-box button {
-      margin-top: 10px;
       width: 80px;
       height: 80px;
       background-color: #1d4b7b;
@@ -147,9 +155,6 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   </style>
 </head>
