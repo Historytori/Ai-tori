@@ -17,7 +17,6 @@
       font-weight: bold;
       font-style: normal;
     }
-
     * {
       margin: 0;
       padding: 0;
@@ -113,377 +112,84 @@
       flex: 1;
       padding: 40px;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      overflow-y: auto;
     }
-    .main-content img {
-      max-width: 300px;
-      opacity: 0.8;
+    .prompt-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+    }
+    .prompt-card {
+      flex: 1 1 100%;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .prompt-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #1d4b7b;
+      margin-bottom: 10px;
+    }
+    .prompt-text {
+      white-space: pre-wrap;
+      font-size: 1rem;
+      color: #333;
+      user-select: none;
+      pointer-events: none;
+    }
+    .copy-btn {
+      margin-top: 12px;
+      background-color: #007bff;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .link-list a {
+      display: block;
+      color: #0056b3;
+      text-decoration: underline;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
-
-  <!-- 과정 선택 화면 -->
   <div id="home" class="home-container">
-    <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
-
-  <!-- 인천UTD 서포터즈 과정 화면 -->
   <div id="incheon-utd" class="main-layout">
-    <div class="sidebar">
-      <h3>✓ 생성AI 사이트</h3>
-      <ul>
-        <li>• 바로가기 링크</li>
-        <li>• 실습파일 다운로드</li>
-      </ul>
-      <h3>1. 생성AI 개요</h3>
-      <ul>
-        <li>• Napkin AI 실습</li>
-        <li>• 감마 실습</li>
-      </ul>
-      <h3>2. ChatGPT 실습</h3>
-      <ul>
-        <li>• 프롬프트 구성</li>
-        <li>• 전략 수립</li>
-        <li>• 그림 그리기1(이미지 생성)</li>
-        <li>• 그림 그리기2(웹툰 만들기)</li>
-        <li>• 그림 그리기3(포스터 만들기)</li>
-        <li>• 그림 그리기4(이미지 합성하기)</li>
-        <li>• GPTs 활용 - 마인드맵 그리기</li>
-        <li>• GPTs 만들기 - 건배사 추천</li>
-      </ul>
-      <h3>3. ChatGPT 심화</h3>
-      <ul>
-        <li>• 굿즈 만들기</li>
-        <li>• 이모티콘 만들기</li>
-        <li>• 액션 피규어 만들기</li>
-        <li>• 자료조사와 요약</li>
-        <li>• 응원가 만들기</li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <img src="./IUFC.png" alt="인천유나이티드 엠블럼">
-    </div>
+    <div class="sidebar" id="sidebar"></div>
+    <div class="main-content" id="main-content"></div>
   </div>
-
-  <!-- 하단 푸터는 홈 화면에서만 표시 -->
   <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
   </div>
-
   <script>
     function goHome() {
       document.getElementById('home').style.display = 'flex';
       document.getElementById('incheon-utd').classList.remove('active');
       document.getElementById('footer').style.display = 'block';
     }
-
     function showCourse(id) {
       document.getElementById('home').style.display = 'none';
       document.getElementById('footer').style.display = 'none';
       document.getElementById(id).classList.add('active');
     }
   </script>
-
-<style>
-  .prompt-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-  }
-
-  .prompt-card {
-    flex: 1 1 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .prompt-title {
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #1d4b7b;
-    margin-bottom: 10px;
-  }
-
-  .prompt-text {
-    white-space: pre-wrap;
-    font-size: 1rem;
-    color: #333;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .copy-btn {
-    margin-top: 12px;
-    background-color: #007bff;
-    color: white;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.95rem;
-  }
-
-  .link-list a {
-    display: block;
-    color: #0056b3;
-    text-decoration: underline;
-    margin-bottom: 6px;
-    font-size: 0.95rem;
-  }
-</style>
-
-<script>
-  const promptMap = {
-    '• 바로가기 링크': {
-      type: 'links',
-      data: [
-        { text: 'ChatGPT', url: 'https://chatgpt.com/' },
-        { text: 'Copilot', url: 'https://copilot.cloud.microsoft/' },
-        { text: 'Gemini', url: 'https://gemini.google.com/' },
-        { text: 'Grok', url: 'https://grok.com/' },
-        { text: 'Felo', url: 'https://felo.ai/ko/' },
-        { text: '뤼튼', url: 'https://wrtn.ai/' },
-        { text: 'Ideogram', url: 'https://ideogram.ai/' },
-        { text: 'GoogleFX', url: 'https://labs.google/fx/ko/' },
-        { text: 'Bing Image Creator', url: 'https://www.bing.com/images/create' },
-        { text: 'Lilys', url: 'https://lilys.ai/' },
-        { text: 'Daglo', url: 'https://daglo.ai/' },
-        { text: 'Youtube', url: 'https://www.youtube.com/' },
-        { text: 'NapkinAI', url: 'https://www.napkin.ai/' },
-        { text: 'Autodraw', url: 'https://www.autodraw.com/' },
-        { text: 'GammaAI', url: 'https://gamma.app/ko/' },
-        { text: 'HeyGen', url: 'https://www.heygen.com/' },
-        { text: 'Suno', url: 'https://suno.com/home/' }
-      ]
-    },
-    '• 실습파일 다운로드': {
-      type: 'link',
-      url: 'https://example.com/실습파일.zip'
-    },
-
-'• Napkin AI 실습': {
-  type: 'text',
-  text: `축구를 잘하는 방법을 설명해 줘`
-},
-
-'• 감마 실습': {
-  type: 'text',
-  text: `지금 업로드한 pdf로 ppt를 만들려고 해,  
-pdf를 8페이지 분량으로 구조화해서 요약해 줘.  
-출력 시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`
-},
-
-'• 프롬프트 구성': {
-  type: 'text',
-  text: `넌 인하대 대학병원 외과 의사야!  
-나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.  
-규칙적인 재활과 평소 운동 습관을 개선해야 하는데,  
-너무 많은 정보들로 인해 어떻게 해야 할지 모르겠어.  
-전문가 입장에서 재활을 어떻게 해야 하는지,  
-발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야 하는지 표로 작성해줄래?`
-},
-
-'• 전략 수립': {
-  type: 'text',
-  text: `너는 프랜차이즈 컨설턴트야,  
-나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고 해.  
-축구 경기 때문에 주말에 유동 인구가 많고 주변에 아파트가 많아.  
-비즈니스 모델 캔버스를 활용해서 사업 모델을 만들어 줄래?  
-그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`
-},
-
-'• 그림 그리기1(이미지 생성)': {
-  type: 'text',
-  text: `다음 내용으로 이미지를 생성해 줘  
-- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여. 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC' 간판이 달려있어.  
-  바다에는 큰 배가 보이고 두루미(학) 3마리가 날고 있어.  
-  인천유나이티드 유니폼을 입은 한국의 남자 아이돌 1명, 여자 아이돌 1명이 팬들을 향해 웃고 있어.  
-- 스타일 : 리얼리스틱  
-- 비율 : 16:9`
-},
-
-'• 그림 그리기2(웹툰 만들기)': {
-  type: 'text',
-  text: `축구 전술 중 하나인 '게겐프레싱'에 대해 간단히 설명해줘.  
-그 내용을 바탕으로 축구팬들에게 알려주는 웹툰을 만들고 싶어.  
-전술 설명, 장점, 단점, 대표 구단 4곳을 포함한 한국 스타일의 웹툰으로 구성해 줘.`
-},
-
-'• 그림 그리기3(포스터 만들기)': {
-  type: 'text',
-  text: `영화 <비상>의 포스터를 리디자인하고 싶어.  
-이 영화는 2005년 인천유나이티드 K리그 플레이오프 준우승 스토리를 다룬 다큐멘터리야.  
-낡고 해상도가 낮은 기존 이미지를 대신해  
-밝은 색감과 일러스트를 활용해 팬들에게 친근하게 전달될 수 있도록 새 포스터를 만들어 줘.`
-},
-
-'• 그림 그리기4(이미지 합성하기)': {
-  type: 'text',
-  text: `첨부한 손흥민 사진과 인천유나이티드 2025 홈 유니폼을 합성해줘.  
-정확하게 관찰해서 손흥민이 해당 유니폼을 입고 있는 이미지로 완성해줘.`
-},
-
-'• GPTs 활용 - 마인드맵 그리기': {
-  type: 'text',
-  text: `이번 주 일요일 16시 30분에 인천유나이티드 vs 부산아이파크 경기가 있어.  
-그 경기를 겸해 부산으로 1박 2일 여행 가려고 해.  
-여행 준비 항목들을 마인드맵 형식으로 정리해줘.`
-},
-
-'• GPTs 만들기 - 건배사 추천': {
-  type: 'text',
-  text: `인천유나이티드 행사에서 활용할 건배사 추천 봇을 만들어줘.  
-행사 분위기나 참석자 유형을 입력하면 5개의 창의적인 건배사를 추천해줘.  
-
-요구 조건:  
-- 각 건배사는 특정 단어의 앞 글자를 따서 구성 (예: 무고사 → 무, 고, 사)  
-- 각 줄은 40자 이상이며 감동과 유머를 함께 담아야 함  
-- 출력은 줄바꿈을 통해 시각적으로 구분  
-- 마지막 줄에는 '위하여!' 혹은 '건배합시다!' 등 마무리 멘트를 포함  
-
-예시:  
-**무**: 무더운 여름에도, 추운 겨울에도 꿋꿋하게 달린 그대여,  
-**고**: 고난 속에서도 빛났던 인천의 자랑!  
-**사**: 사랑해요, 우리의 영웅 무고사!  
-이 자리에 함께한 우리 모두를 위하여, 건배!`
-}
-
-'• 굿즈 만들기': {
-  type: 'text',
-  text: `인천유나이티드 구단의 굿즈를 새롭게 디자인하려고 해.  
-공식 엠블럼을 활용해서 머플러, 핸드폰 케이스, 키링, 응원봉, 텀블러 등의 시안을 제안해줘.  
-
-추가로 양말 세트도 기획 중이야.  
-흰색, 검은색, 파란색을 활용한 3종 세트로, 깔끔하고 인기 있을 만한 디자인이면 좋아.  
-숫자가 들어간다면 창단연도인 '2003'을 의미하는 '03'을 넣어줘.`
-},
-
-'• 이모티콘 만들기': {
-  type: 'text',
-  text: `첨부된 사진 속 인물을 바탕으로 이모티콘 캐릭터를 제작해줘.  
-배경은 흰색, 유니폼은 인천유나이티드 2025 홈 유니폼을 착용한 모습이야.  
-
-요청 사항:  
-- 다양한 각도(전면, 후면, 측면, 로우앵글, 하이앵글)로 캐릭터를 만들어줘  
-- 사람의 감정 16가지를 표로 정리해줘 (감정, 표정, 행동, 제스처 등)  
-- 위 표를 기반으로 16가지 감정 이모티콘을 캐릭터로 표현해줘  
-- 표정과 포즈는 과장되게, 말풍선이나 텍스트 삽입 가능  
-- MBTI 16유형별 감정 특성과 표현도 캐릭터로 구성해줘`
-},
-
-'• 액션 피규어 만들기': {
-  type: 'text',
-  text: `인천유나이티드의 무고사 선수를 기반으로 액션 피규어 세트를 제작하고 싶어.  
-악세서리는 축구공, 축구화, 골 세리머니 손, 유니폼, 미니 응원봉 등을 포함해줘.  
-
-패키지 구성 조건:  
-- 바탕 종이는 파란색  
-- 투명 PVC 케이스에 전체 구성품이 들어가 있어야 함  
-- 인쇄는 영어로 하고, 오탈자 없어야 함  
-- 상품명, 설명도 패키지에 디자인  
-- 실제 판매 가능한 수준의 리얼한 제품 목업 형태  
-- 비율: 9:16`
-},
-
-'• 자료조사와 요약': {
-  type: 'text',
-  text: `인천유나이티드 구단의 미래 전망에 대한 최근 기사나 문서를 10건 찾아줘.  
-내용을 구조화해서 요약해줘.  
-이 중 키워드를 뽑아 마인드맵으로 시각화해줘.  
-요약 내용은 '인천유나이티드의 전망'이라는 제목으로,  
-multilingual 기능을 활용해 한국어 1분 분량 음원 스크립트로도 변환해줘.`
-},
-
-'• 응원가 만들기': {
-  type: 'text',
-  text: `인천유나이티드를 위한 응원가를 만들고 싶어.  
-대구 FC의 '그 겨울'처럼 경쾌하고 따라 부르기 쉬운 분위기를 원해.  
-
-음악 스타일 프롬프트:  
-Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm  
-참고: Righeira의 L’estate Sta Finendo  
-
-응원가 가사에 포함하고 싶은 키워드:  
-서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사  
-
-이 키워드를 참고해 가사를 작성해줘.`
-}
-
-'• 테트리스 만들기': {
-  type: 'text',
-  text: `웹에서 실행되는 테트리스 게임을 만들어줘.  
-
-조건:  
-- HTML + 자바스크립트 하나의 파일  
-- 방향키로 블록 회전/이동 가능  
-- 컬러풀한 블록 랜덤 생성  
-- 라인 완성 시 자동 삭제  
-- 다음 블록 표시 영역  
-- 상단에 점수 표시  
-- 레벨 시스템 포함  
-- 스페이스 바로 빠르게 하강 가능`
-}
-
-  };
-
-  document.querySelectorAll('.sidebar li').forEach(li => {
-    li.addEventListener('click', () => {
-      const label = li.textContent.trim();
-      const contentArea = document.querySelector('.main-content');
-      contentArea.innerHTML = '';  // 기존 이미지 제거
-
-      const entry = promptMap[label];
-      if (!entry) return;
-
-      const container = document.createElement('div');
-      container.className = 'prompt-container';
-      const card = document.createElement('div');
-      card.className = 'prompt-card';
-
-      if (entry.type === 'text') {
-        card.innerHTML = `
-          <div class="prompt-title">${label}</div>
-          <div class="prompt-text">${entry.text}</div>
-          <button class="copy-btn" onclick="copyPrompt(this)">복사하기</button>
-        `;
-      } else if (entry.type === 'links') {
-        card.innerHTML = `
-          <div class="prompt-title">${label}</div>
-          <div class="link-list">
-            ${entry.data.map(link => `<a href="${link.url}" target="_blank">${link.text}</a>`).join('')}
-          </div>
-        `;
-      } else if (entry.type === 'link') {
-        card.innerHTML = `
-          <div class="prompt-title">${label}</div>
-          <a href="${entry.url}" class="copy-btn" download>다운로드</a>
-        `;
-      }
-
-      container.appendChild(card);
-      contentArea.appendChild(container);
-    });
-  });
-
-  function copyPrompt(btn) {
-    const text = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '✅ 복사됨!';
-      setTimeout(() => btn.textContent = '복사하기', 1500);
-    });
-  }
-</script>
-
+  <script src="./prompts.js"></script>
 </body>
 </html>
