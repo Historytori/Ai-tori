@@ -129,20 +129,21 @@
       border-radius: 8px;
       box-shadow: 0 0 4px rgba(0,0,0,0.1);
       user-select: none;
-      position: relative;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
     }
-    .prompt-box div {
+    .prompt-text {
       flex: 1;
       white-space: pre-wrap;
+      font-size: 1rem;
+      line-height: 1.5;
     }
-    .prompt-box button {
-      width: 40px;
-      height: 40px;
+    .copy-button {
+      width: 48px;
+      height: 48px;
       background: url('./copy-icon.png') no-repeat center center;
-      background-size: contain;
+      background-size: 70%;
       border: none;
       cursor: pointer;
       flex-shrink: 0;
@@ -152,12 +153,10 @@
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
 
-  <!-- 홈 화면 -->
   <div id="home" class="home-container">
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
 
-  <!-- 인천유나이티드 과정 화면 -->
   <div id="incheon-utd" class="main-layout">
     <div class="sidebar">
       <h3>✓ 생성AI 사이트</h3>
@@ -176,7 +175,6 @@
     </div>
   </div>
 
-  <!-- 하단 푸터 -->
   <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
@@ -212,8 +210,8 @@
         const box = document.createElement('div');
         box.className = 'prompt-box';
         box.innerHTML = `
-          <div>${text}</div>
-          <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)"></button>
+          <div class="prompt-text">${text}</div>
+          <button class="copy-button" onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)"></button>
         `;
         container.appendChild(box);
       });
