@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>인천UTD 서포터즈 AI교육</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #1c1c1c;
+      color: #fff;
+      overflow-y: auto;
+    }
+    .sidebar h2, .sidebar button {
+      padding: 12px;
+      text-align: left;
+      background-color: #2c2c2c;
+      border: none;
+      width: 100%;
+      color: white;
+      cursor: pointer;
+    }
+    .sidebar button:hover {
+      background-color: #444;
+    }
+    .main {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: #f4f4f4;
+    }
+    .prompt {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      position: relative;
+    }
+    .copy-button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>인천UTD 서포터즈</h2>
+    <button onclick="showPrompt('gpt-overview')">1. 생성AI 개요</button>
+    <button onclick="showPrompt('chatgpt-practice')">2. ChatGPT 실습</button>
+    <button onclick="showPrompt('chatgpt-advanced')">3. ChatGPT 심화</button>
+  </div>
+  <div class="main" id="main-content">
+    <h1>좌측에서 항목을 선택해주세요</h1>
+  </div>
+
+  <script>
+    const prompts = {
+      'gpt-overview': `
+        <div class='prompt'>
+          <h3>Napkin AI 실습</h3>
+          <p>축구를 잘하는 방법을 설명해 줘</p>
+          <button class="copy-button" onclick="copyText(this)">복사하기</button>
+        </div>
+        <div class='prompt'>
+          <h3>감마 실습</h3>
+          <p>지금 업로드한 pdf로 ppt를 만들려고해,<br>pdf를 8페이지 분량으로 구조화해서 요약해 줘,<br>출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘</p>
+          <button class="copy-button" onclick="copyText(this)">복사하기</button>
+        </div>
+      `,
+      'chatgpt-practice': `
+        <div class='prompt'>
+          <h3>프롬프트 구성</h3>
+          <p>넌 인하대 대학병원 외과 의사야!<br>
+          나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.<br>
+          전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?</p>
+          <button class="copy-button" onclick="copyText(this)">복사하기</button>
+        </div>
+        <!-- 더 많은 프롬프트는 이어서 추가 가능 -->
+      `,
+      'chatgpt-advanced': `
+        <div class='prompt'>
+          <h3>굿즈 만들기</h3>
+          <p>인천유나이티드 구단의 올 시즌 새로운 굿즈를 디자인할 거야. 머플러, 핸드폰케이스, 키링, 응원봉, 텀블러 굿즈 상품을 만드려고 해. 디자인 시안 보여줘.</p>
+          <button class="copy-button" onclick="copyText(this)">복사하기</button>
+        </div>
+      `
+    };
+
+    function showPrompt(key) {
+      document.getElementById('main-content').innerHTML = prompts[key];
+    }
+
+    function copyText(button) {
+      const text = button.previousElementSibling.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        button.innerText = "복사됨!";
+        setTimeout(() => button.innerText = "복사하기", 1500);
+      });
+    }
+  </script>
+</body>
+</html>
