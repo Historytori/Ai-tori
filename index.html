@@ -24,11 +24,9 @@
       box-sizing: border-box;
       font-family: 'Freesentation', sans-serif;
     }
-
     body {
       background-color: #f2f2f2;
     }
-
     header {
       background-color: #333333;
       color: white;
@@ -38,7 +36,6 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     .home-container {
       display: flex;
       justify-content: center;
@@ -47,7 +44,6 @@
       gap: 40px;
       flex-wrap: wrap;
     }
-
     .course-card {
       width: 250px;
       height: 120px;
@@ -64,16 +60,13 @@
       cursor: pointer;
       transition: 0.2s ease;
     }
-
     .course-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     }
-
     a {
       text-decoration: none;
     }
-
     .footer {
       background-color: #f2f2f2;
       text-align: center;
@@ -81,7 +74,6 @@
       color: #333;
       font-size: 0.95rem;
     }
-
     .footer-image {
       width: 120px;
       height: auto;
@@ -91,11 +83,9 @@
       display: none;
       height: 100vh;
     }
-
     .main-layout.active {
       display: flex;
     }
-
     .sidebar {
       width: 300px;
       background-color: #e5f0f8;
@@ -103,76 +93,83 @@
       overflow-y: auto;
       border-right: 1px solid #ccc;
     }
-
     .sidebar h3 {
       margin-bottom: 10px;
       color: #1d4b7b;
     }
-
     .sidebar ul {
       list-style: none;
       padding-left: 15px;
       margin-bottom: 20px;
     }
-
     .sidebar li {
       margin-bottom: 6px;
       cursor: pointer;
     }
-
     .sidebar li:hover {
       text-decoration: underline;
     }
-
     .main-content {
       flex: 1;
       padding: 40px;
-      overflow-y: auto;
-    }
-
-    .prompt-block {
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      padding: 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      user-select: none;
+      justify-content: center;
     }
-
-    .prompt-text {
-      flex-grow: 1;
-      margin-right: 10px;
-      pointer-events: none;
-    }
-
-    .copy-btn {
-      padding: 8px 12px;
-      border: none;
-      border-radius: 6px;
-      background-color: #1d4b7b;
-      color: white;
-      cursor: pointer;
+    .main-content img {
+      max-width: 300px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
 
+  <!-- 과정 선택 화면 -->
   <div id="home" class="home-container">
+    <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
 
+  <!-- 인천UTD 서포터즈 과정 화면 -->
   <div id="incheon-utd" class="main-layout">
     <div class="sidebar">
-      <h3 onclick="loadCategory('site')">✓ 생성AI 사이트</h3>
+      <h3>✓ 생성AI 사이트</h3>
+      <ul>
+        <li>• 바로가기 링크</li>
+        <li>• 실습파일 다운로드</li>
+      </ul>
+      <h3>1. 생성AI 개요</h3>
+      <ul>
+        <li>• Napkin AI 실습</li>
+        <li>• 감마 실습</li>
+      </ul>
+      <h3>2. ChatGPT 실습</h3>
+      <ul>
+        <li>• 프롬프트 구성</li>
+        <li>• 전략 수립</li>
+        <li>• 그림 그리기1(이미지 생성)</li>
+        <li>• 그림 그리기2(웹툰 만들기)</li>
+        <li>• 그림 그리기3(포스터 만들기)</li>
+        <li>• 그림 그리기4(이미지 합성하기)</li>
+        <li>• GPTs 활용 - 마인드맵 그리기</li>
+        <li>• GPTs 만들기 - 건배사 추천</li>
+      </ul>
+      <h3>3. ChatGPT 심화</h3>
+      <ul>
+        <li>• 굿즈 만들기</li>
+        <li>• 이모티콘 만들기</li>
+        <li>• 액션 피규어 만들기</li>
+        <li>• 자료조사와 요약</li>
+        <li>• 응원가 만들기</li>
+      </ul>
     </div>
-    <div class="main-content" id="prompt-content">
-      <img src="./IUFC.png" alt="인천유나이티드 엠블럼" style="max-width: 300px; opacity: 0.8;">
+    <div class="main-content">
+      <img src="./IUFC.png" alt="인천유나이티드 엠블럼">
     </div>
   </div>
+
+  <!-- 하단 푸터는 홈 화면에서만 표시 -->
   <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
@@ -190,133 +187,6 @@
       document.getElementById('footer').style.display = 'none';
       document.getElementById(id).classList.add('active');
     }
-
-    function loadCategory(cat) {
-      const content = {
-        site: `
-        <div class="prompt-block">
-            <div class="prompt-text" unselectable="on">1. ChatGPT(대화형AI) https://chatgpt.com/</div>
-            <button class="copy-btn" onclick="copyToClipboard('1. ChatGPT(대화형AI) https://chatgpt.com/')">복사하기</button>
-        </div>
-
-        <div class="prompt-block">
-            <div class="prompt-text" unselectable="on">2. Copilot(대화형AI) https://copilot.cloud.microsoft/</div>
-            <button class="copy-btn" onclick="copyToClipboard('2. Copilot(대화형AI) https://copilot.cloud.microsoft/')">복사하기</button>
-        </div>
-
-        <div class="prompt-block">
-            <div class="prompt-text" unselectable="on">3. Gemini(대화형AI) https://gemini.google.com/</div>
-            <button class="copy-btn" onclick="copyToClipboard('3. Gemini(대화형AI) https://gemini.google.com/')">복사하기</button>
-        </div>
-        `
-      };
-      document.getElementById('prompt-content').innerHTML = content[cat];
-    }
-
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('복사되었습니다.');
-      });
-    }
   </script>
 </body>
-</html>
-function loadCategory(cat) {
-  const content = {
-    site: `...`, // 이전 내용 생략
-    "1. 생성AI 개요": `
-      <div class="prompt-block">
-        <div class="prompt-text" unselectable="on">축구를 잘하는 방법을 설명해 줘</div>
-        <button class="copy-btn" onclick="copyToClipboard('축구를 잘하는 방법을 설명해 줘')">복사하기</button>
-      </div>
-
-      <div class="prompt-block">
-        <div class="prompt-text" unselectable="on">지금 업로드한 pdf로 ppt를 만들려고해,
-pdf를 8페이지 분량으로 구조화해서 요약해 줘,
-출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘</div>
-        <button class="copy-btn" onclick="copyToClipboard('지금 업로드한 pdf로 ppt를 만들려고해, pdf를 8페이지 분량으로 구조화해서 요약해 줘, 출력시 문장의 어미는 ~임, ~함, ~증가, ~확대 등과 같이 간결하게 작성해 줘')">복사하기</button>
-      </div>
-    `,
-
-    "2. ChatGPT 실습": `
-      <div class="prompt-block">
-        <div class="prompt-text" unselectable="on">넌 인하대 대학병원 외과 의사야! 
-나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.
-규칙적인 재활과 평소 운동습관을 개선해야 하는데, 너무 많은 정보들로 인해 어떻게 해야 할지 모르겠어.
-전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야 하는지 표로 작성해줄래?</div>
-        <button class="copy-btn" onclick="copyToClipboard('넌 인하대 대학병원 외과 의사야! 나는 축구를 하다가 발목을 접질렀어...')">복사하기</button>
-      </div>
-
-      <div class="prompt-block">
-        <div class="prompt-text" unselectable="on">너는 프렌차이즈 컨설턴트야, 나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고 해.
-축구 경기 때문에 주말에 유동인구가 많고 주변에 아파트가 많아.
-비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
-그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘</div>
-        <button class="copy-btn" onclick="copyToClipboard('너는 프렌차이즈 컨설턴트야...')">복사하기</button>
-      </div>
-    `
-  };
-
-  document.getElementById('prompt-content').innerHTML = content[cat];
-}
-"3. ChatGPT 심화": `
-  <div class="prompt-block">
-    <div class="prompt-text" unselectable="on">인천유나이티드 구단의 올 시즌 새로운 굿즈를 디자인할 거야. 위에 공식 앰블럼을 활용해서 머플러, 핸드폰케이스, 키링, 응원봉, 텀블러 굿즈 상품을 만드려고 해. 디자인 시안 보여줘.</div>
-    <button class="copy-btn" onclick="copyToClipboard('인천유나이티드 구단의 올 시즌 새로운 굿즈를 디자인할 거야...')">복사하기</button>
-  </div>
-
-  <div class="prompt-block">
-    <div class="prompt-text" unselectable="on">첨부한 사진은 인천유나이티드의 축구선수 '무고사'야. 무고사가 사용할 4~5개의 액세서리(축구공, 축구화 등)와 함께 그 캐릭터의 액션 피규어 세트를 실제 제품 목업 스타일로 만들어줘. 추가로 아래의 조건을 준수해줘: ...</div>
-    <button class="copy-btn" onclick="copyToClipboard('첨부한 사진은 인천유나이티드의 축구선수 무고사야...')">복사하기</button>
-  </div>
-
-  <div class="prompt-block">
-    <div class="prompt-text" unselectable="on">인천유나이티드 전망에 관한 최신 기사, 문서 등 10건을 찾아줘</div>
-    <button class="copy-btn" onclick="copyToClipboard('인천유나이티드 전망에 관한 최신 기사, 문서 등 10건을 찾아줘')">복사하기</button>
-  </div>
-
-  <div class="prompt-block">
-    <div class="prompt-text" unselectable="on">축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. Suno에 입력할 프롬프트를 첨부할게...</div>
-    <button class="copy-btn" onclick="copyToClipboard('축구 구단 인천유나이티드의 응원가를 만들려고 해...')">복사하기</button>
-  </div>
-`,
-
-"4. 기타": `
-  <div class="prompt-block">
-    <div class="prompt-text" unselectable="on">웹에서 구동되는 테트리스 게임을 만들어줘
-- html과 자바스크립트로 하나의 파일로 작성해 줘
-- 방향키로 블록을 회전 또는 전진, 이동하게 해 줘
-- 매번 새로운 블록이 컬러풀 하게 나와야 해
-- 공백 없이 완성된 라인은 삭제해 줘
-- 다음에 나올 도형이 우측에 보이게 해줘
-- 점수를 상단에 표시해줘
-- LEVEL을 표현해줘
-- 스페이스 바를 누르면 바로 하단으로 떨어지게 해줘</div>
-    <button class="copy-btn" onclick="copyToClipboard('웹에서 구동되는 테트리스 게임을 만들어줘...')">복사하기</button>
-  </div>
-`
-<!DOCTYPE html>
-<html>
-  <head>
-    <!-- [1/6], [2/6] 스타일 및 기본 구조 -->
-  </head>
-
-  <body>
-    <!-- [2/6] 홈 화면 + 과정 전환 -->
-    <!-- [3/6] 푸터 + 스크립트 시작 -->
-
-    <script>
-      // [3/6] goHome, showCourse, copyToClipboard 정의
-      function loadCategory(cat) {
-        const content = {
-          site: `...`,                       // [3/6]
-          "1. 생성AI 개요": `...`,          // [4/6]
-          "2. ChatGPT 실습": `...`,         // [4/6]
-          "3. ChatGPT 심화": `...`,         // [5/6]
-          "4. 기타": `...`                  // [5/6]
-        };
-        document.getElementById("prompt-content").innerHTML = content[cat];
-      }
-    </script>
-  </body>
 </html>
