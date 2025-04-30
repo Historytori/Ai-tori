@@ -187,6 +187,8 @@
       document.getElementById('footer').style.display = 'none';
       document.getElementById(id).classList.add('active');
     }
+  </script>
+
 <style>
   .prompt-container {
     display: flex;
@@ -269,7 +271,7 @@
       type: 'link',
       url: 'https://example.com/실습파일.zip'
     },
-    // 다음 메시지에서 프롬프트 내용들을 계속 이어드립니다.
+
 '• Napkin AI 실습': {
   type: 'text',
   text: `축구를 잘하는 방법을 설명해 줘`
@@ -281,6 +283,7 @@
 pdf를 8페이지 분량으로 구조화해서 요약해 줘.  
 출력 시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`
 },
+
 '• 프롬프트 구성': {
   type: 'text',
   text: `넌 인하대 대학병원 외과 의사야!  
@@ -299,6 +302,7 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘.
 비즈니스 모델 캔버스를 활용해서 사업 모델을 만들어 줄래?  
 그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`
 },
+
 '• 그림 그리기1(이미지 생성)': {
   type: 'text',
   text: `다음 내용으로 이미지를 생성해 줘  
@@ -354,6 +358,7 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘.
 **사**: 사랑해요, 우리의 영웅 무고사!  
 이 자리에 함께한 우리 모두를 위하여, 건배!`
 }
+
 '• 굿즈 만들기': {
   type: 'text',
   text: `인천유나이티드 구단의 굿즈를 새롭게 디자인하려고 해.  
@@ -414,6 +419,7 @@ Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, st
 
 이 키워드를 참고해 가사를 작성해줘.`
 }
+
 '• 테트리스 만들기': {
   type: 'text',
   text: `웹에서 실행되는 테트리스 게임을 만들어줘.  
@@ -428,6 +434,7 @@ Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, st
 - 레벨 시스템 포함  
 - 스페이스 바로 빠르게 하강 가능`
 }
+
   };
 
   document.querySelectorAll('.sidebar li').forEach(li => {
@@ -477,3 +484,6 @@ Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, st
     });
   }
 </script>
+
+</body>
+</html>
