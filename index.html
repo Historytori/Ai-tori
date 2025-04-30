@@ -125,8 +125,6 @@
     .main-content img {
       max-width: 300px;
       opacity: 0.8;
-      margin: 0 auto;
-      display: block;
     }
     .prompt-box {
       width: 100%;
@@ -136,51 +134,76 @@
       border-radius: 8px;
       box-shadow: 0 0 4px rgba(0,0,0,0.1);
       user-select: none;
-      position: relative;
     }
-    .prompt-box .copy-button {
-      width: 36px;
-      height: 36px;
-      background: url('./copy-icon.png') no-repeat center center;
-      background-size: contain;
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    .prompt-box button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background-color: #1d4b7b;
+      color: white;
       border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
+
+  <!-- 과정 선택 화면 -->
   <div id="home" class="home-container">
+    <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
+
+  <!-- 인천UTD 서포터즈 과정 화면 -->
   <div id="incheon-utd" class="main-layout">
     <div class="sidebar">
       <h3>✓ 생성AI 사이트</h3>
-      <ul><li>• 바로가기 링크</li><li>• 실습파일 다운로드</li></ul>
+      <ul>
+        <li>• 바로가기 링크</li>
+        <li>• 실습파일 다운로드</li>
+      </ul>
       <h3>1. 생성AI 개요</h3>
-      <ul><li>• Napkin AI 실습</li><li>• 감마 실습</li></ul>
+      <ul>
+        <li>• Napkin AI 실습</li>
+        <li>• 감마 실습</li>
+      </ul>
       <h3>2. ChatGPT 실습</h3>
-      <ul><li>• 프롬프트 구성</li><li>• 전략 수립</li><li>• 그림 그리기1(이미지 생성)</li><li>• 그림 그리기2(웹툰 만들기)</li><li>• 그림 그리기3(포스터 만들기)</li><li>• 그림 그리기4(이미지 합성하기)</li><li>• GPTs 활용 - 마인드맵 그리기</li><li>• GPTs 만들기 - 건배사 추천</li></ul>
+      <ul>
+        <li>• 프롬프트 구성</li>
+        <li>• 전략 수립</li>
+        <li>• 그림 그리기1(이미지 생성)</li>
+        <li>• 그림 그리기2(웹툰 만들기)</li>
+        <li>• 그림 그리기3(포스터 만들기)</li>
+        <li>• 그림 그리기4(이미지 합성하기)</li>
+        <li>• GPTs 활용 - 마인드맵 그리기</li>
+        <li>• GPTs 만들기 - 건배사 추천</li>
+      </ul>
       <h3>3. ChatGPT 심화</h3>
       <ul>
-        <li onclick="showPrompts('goods')">• 굿즈 만들기</li>
-        <li onclick="showPrompts('emoticon')">• 이모티콘 만들기</li>
-        <li onclick="showPrompts('figure')">• 액션 피규어 만들기</li>
-        <li onclick="showPrompts('summary')">• 자료조사와 요약</li>
+        <li>• 굿즈 만들기</li>
+        <li>• 이모티콘 만들기</li>
+        <li>• 액션 피규어 만들기</li>
+        <li>• 자료조사와 요약</li>
+        <li onclick="showPrompts()">• 응원가 만들기</li>
+      </ul>
+      <h3>4. 기타</h3>
+      <ul>
+        <li>• 테트리스 게임 만들기</li>
       </ul>
     </div>
-    <div class="main-content">
+    <div class="main-content" id="incheon-utd-content">
       <img src="./IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
       <div id="prompt-container" style="display:none;"></div>
     </div>
   </div>
+
+  <!-- 하단 푸터는 홈 화면에서만 표시 -->
   <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
   </div>
+
   <script>
     const promptsData = {
       goods: [
