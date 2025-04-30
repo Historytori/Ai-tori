@@ -1,7 +1,7 @@
-// prompts.js - 완전 버전 (다중 프롬프트, 활성화 표시 포함)
+// prompts.js - 전체 4개 카테고리, 16개 항목, 모든 프롬프트 반영
 
 const promptMap = {
-  '• 바로가기 링크': {
+  '• 생성AI 사이트': {
     type: 'links',
     data: [
       { text: '1. ChatGPT(대화형AI)', url: 'https://chatgpt.com/' },
@@ -25,7 +25,8 @@ const promptMap = {
   },
   '• 실습파일 다운로드': {
     type: 'link',
-    url: 'https://example.com/실습파일.zip'
+    text: '실습파일 다운로드',
+    url: 'https://example.com/sample.zip'
   },
   '• Napkin AI 실습': {
     type: 'text',
@@ -33,84 +34,68 @@ const promptMap = {
   },
   '• 감마 실습': {
     type: 'text',
-    texts: ['지금 업로드한 pdf로 ppt를 만들려고해,\npdf를 8페이지 분량으로 구조화해서 요약해 줘.\n출력시 문장의 어미는 ~임, ~함, ~증가, ~확대 등과 같이 간결하게 작성해 줘.']
+    texts: ['지금 업로드한 pdf로 ppt를 만들려고해, pdf를 8페이지 분량으로 구조화해서 요약해 줘. 출력시 문장의 어미는 ~임, ~함, ~증가, ~확대 등과 같이 간결하게 작성해 줘.']
+  },
+  '• 프롬프트 구성': {
+    type: 'text',
+    texts: ['넌 인하대 대학병원 외과 의사야! 나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어. 규칙적인 재활과 평소 운동습관을 개선해야 하는데, 너무 많은 정보들로 인해 어떻게 해야할 지 모르겠어. 전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?']
+  },
+  '• 전략 수립': {
+    type: 'text',
+    texts: ['너는 프렌차이즈 컨설턴트야, 나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해. 축구 경기 때문에 주말에 유동인구가 많고 주변에 아파트가 많아. 비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래? 그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.']
+  },
+  '• 그림 그리기1(이미지 생성)': {
+    type: 'text',
+    texts: ['다음 내용으로 이미지를 생성해 줘 - 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 \'IUFC\'라는 간판이 달려있어, 바다에는 큰 배가 보이고 두루미 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어 - 스타일 : 리얼리스틱 - 비율 : 16:9']
+  },
+  '• 그림 그리기2(웹툰 만들기)': {
+    type: 'text',
+    texts: [
+      '축구 전술 중 하나인 \'게겐프레싱\'에 대해 간단하게 설명해줘',
+      '위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어. 게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.'
+    ]
+  },
+  '• 그림 그리기3(포스터 만들기)': {
+    type: 'text',
+    texts: ['첨부한 사진은 영화 <비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘.']
+  },
+  '• 그림 그리기4(이미지 합성하기)': {
+    type: 'text',
+    texts: ['첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.']
+  },
+  '• GPTs 활용 - 마인드맵 그리기': {
+    type: 'text',
+    texts: ['이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘.']
+  },
+  '• GPTs 만들기 - 건배사 추천': {
+    type: 'text',
+    texts: ['인천유나이티드 건배사 추천봇 - 행사 분위기를 입력하면 건배사를 추천해줍니다. 역할: 너는 인천유나이티드의 다양한 행사에서 사람들을 행복하게 만들 수 있는 건배사를 작성해야 해. 지침: 사용자가 특별한 정보를 입력하지 않을 경우 아래와 같은 내용을 정중하게 질문해줘. - 행사의 성격 및 분위기, 참석자 유형. 사람들이 행복하고 즐거워 할 수 있는 건배사를 5건 만들어줘. 건배사는 출력의 예시처럼, 건배사의 앞글자를 모으면 하나의 단어가 되야해. 각 줄은 40자 이상으로 풍성하고, 감동 또는 재치가 담겨 있어야 해. 감정을 울리는 따뜻한 문장과, 웃음을 유발하는 재치 있는 표현을 조화롭게 담아줘. 건배사는 의미가 있는 3~4 단어로 만들어줘.']
+  },
+  '• 굿즈 만들기': {
+    type: 'text',
+    texts: [
+      '인천유나이티드 구단의 올 시즌 새로운 굿즈를 디자인할 거야. 위에 공식 앰블럼을 활용해서 머플러, 핸드폰케이스, 키링, 응원봉, 텀블러 굿즈 상품을 만드려고 해. 디자인 시안 보여줘.',
+      '이번에는 양말 세트를 만들고자 해. 흰색, 검은색, 파란색을 기반으로 세 양말 세트 디자인 시안 보여줘. 깔끔하고 사람들이 좋아할만한 디자인으로 부탁해. 축구구단의 굿즈들을 참고해도 좋아. 숫자가 들어가야 한다면 창단 연도인 2003년을 활용해서 \'03\'으로 부탁해.'
+    ]
+  },
+  '• 이모티콘 만들기': {
+    type: 'text',
+    texts: ['너는 세계 최고의 일러스트야. 첨부한 사진의 인물을 잘 분석해서 이모티콘용 캐릭터 이미지를 생성해줘. 배경은 흰색이고, 캐릭터는 2025년 인천유나이티드의 홈 유니폼을 입고 있어.']
+  },
+  '• 액션 피규어 만들기': {
+    type: 'text',
+    texts: ['첨부한 사진은 인천유나이티드의 축구선수 무고사야. 무고사가 사용할 4~5개의 액세서리(축구공, 축구화 등)와 함께 그 캐릭터의 액션 피규어 세트를 실제 제품 목업스타일로 만들어줘. 캐릭터와 악세서리들이 전부 패키지화된 상품. 액션피규어 세트와 바탕종이, 투명PVC케이스로 구성.']
+  },
+  '• 자료조사와 요약': {
+    type: 'text',
+    texts: ['인천유나이티드 전망에 관한 최신 기사, 문서 등 10건을 찾아줘. 0번 내용이 마음에 들어. 구조화하고 자세하게 설명해줘. 위 내용에서 키워드를 도출하고 마인드맵을 그려줘. 위 내용의 제목은 \'인천유나이티드의 전망\' 이야. 한글로 1분길이의 음원으로 변환해 줘. 변환할 때 multilingual 기능을 사용해.']
+  },
+  '• 응원가 만들기': {
+    type: 'text',
+    texts: ['축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 \'그 겨울\'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘. Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm. 설명 보완용 : Inspired by Righeira\'s L\'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines. 해당 느낌을 학습해서 가사를 써줘. 인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게. 마음에 드는 걸 선택해서 가사를 작성해줘. 키워드: 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사.']
+  },
+  '• 테트리스 만들기': {
+    type: 'text',
+    texts: ['웹에서 구동되는 테트리스 게임을 만들어줘. html과 자바스크립트로 하나의 파일로 작성해 줘. 방향키로 블록을 회전 또는 전진, 이동하게 해 줘. 매번 새로운 블록이 컬러풀 하게 나와야 해. 공백없이 완성된 라인은 삭제해 줘. 다음에 나올 도형이 우측에 보이게 해줘. 점수를 상단에 표시해줘. LEVEL을 표현해줘. 스페이스 바를 누르면 바로 하단으로 떨어지게 해줘.']
   }
 };
-
-const sidebarLabels = Object.keys(promptMap);
-const sidebar = document.getElementById('sidebar');
-const main = document.getElementById('main-content');
-
-function createSidebar() {
-  sidebar.innerHTML = '';
-  let currentGroup = '';
-  sidebarLabels.forEach(label => {
-    const groupMatch = label.match(/^•\s(.*?)\s/);
-    const group = groupMatch ? groupMatch[1] : '기타';
-    if (group !== currentGroup) {
-      const h3 = document.createElement('h3');
-      h3.textContent = group;
-      sidebar.appendChild(h3);
-      const ul = document.createElement('ul');
-      ul.id = `group-${group}`;
-      sidebar.appendChild(ul);
-      currentGroup = group;
-    }
-    const li = document.createElement('li');
-    li.textContent = label;
-    li.onclick = () => {
-      document.querySelectorAll('.sidebar li').forEach(el => el.classList.remove('active'));
-      li.classList.add('active');
-      renderPrompt(label);
-    };
-    document.querySelector(`#group-${currentGroup}`).appendChild(li);
-  });
-}
-
-function renderPrompt(label) {
-  const entry = promptMap[label];
-  if (!entry) return;
-  main.innerHTML = '';
-  const container = document.createElement('div');
-  container.className = 'prompt-container';
-
-  if (entry.type === 'text') {
-    (entry.texts || []).forEach(text => {
-      const card = document.createElement('div');
-      card.className = 'prompt-card';
-      card.innerHTML = `
-        <div class="prompt-text">${text}</div>
-        <button class="copy-btn" onclick="copyPrompt(this)">복사하기</button>
-      `;
-      container.appendChild(card);
-    });
-  } else if (entry.type === 'links') {
-    const card = document.createElement('div');
-    card.className = 'prompt-card';
-    card.innerHTML = `
-      <div class="link-list">
-        ${entry.data.map(link => `<a href="${link.url}" target="_blank">${link.text}</a>`).join('')}
-      </div>
-    `;
-    container.appendChild(card);
-  } else if (entry.type === 'link') {
-    const card = document.createElement('div');
-    card.className = 'prompt-card';
-    card.innerHTML = `
-      <a href="${entry.url}" class="copy-btn" download>다운로드</a>
-    `;
-    container.appendChild(card);
-  }
-
-  main.appendChild(container);
-}
-
-function copyPrompt(btn) {
-  const text = btn.previousElementSibling.innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✅ 복사됨!';
-    setTimeout(() => btn.textContent = '복사하기', 1500);
-  });
-}
-
-createSidebar();
