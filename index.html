@@ -34,6 +34,7 @@
       text-align: center;
       font-size: 1.5rem;
       font-weight: bold;
+      cursor: pointer;
     }
     .home-container {
       display: flex;
@@ -78,7 +79,6 @@
       height: auto;
       margin-bottom: 10px;
     }
-
     .main-layout {
       display: none;
       height: 100vh;
@@ -123,12 +123,12 @@
   </style>
 </head>
 <body>
-  <header>생성AI 실습 프롬프트</header>
+  <header onclick="goHome()">생성AI 실습 프롬프트</header>
 
   <!-- 과정 선택 화면 -->
   <div id="home" class="home-container">
-    <div class="course-card" onclick="showIncheonUTD()">인천UTD 서포터즈 과정</div>
-    <div class="course-card">AI 속성 이해과정</div>
+    <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
+    <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
 
   <!-- 인천UTD 서포터즈 과정 화면 -->
@@ -169,15 +169,23 @@
     </div>
   </div>
 
-  <div class="footer">
+  <!-- 하단 푸터는 홈 화면에서만 표시 -->
+  <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
   </div>
 
   <script>
-    function showIncheonUTD() {
+    function goHome() {
+      document.getElementById('home').style.display = 'flex';
+      document.getElementById('incheon-utd').classList.remove('active');
+      document.getElementById('footer').style.display = 'block';
+    }
+
+    function showCourse(id) {
       document.getElementById('home').style.display = 'none';
-      document.getElementById('incheon-utd').classList.add('active');
+      document.getElementById('footer').style.display = 'none';
+      document.getElementById(id).classList.add('active');
     }
   </script>
 </body>
