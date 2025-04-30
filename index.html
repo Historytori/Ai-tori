@@ -17,6 +17,7 @@
       font-weight: bold;
       font-style: normal;
     }
+
     * {
       margin: 0;
       padding: 0;
@@ -117,6 +118,10 @@
       justify-content: flex-start;
       overflow-y: auto;
     }
+    .main-content img {
+      max-width: 300px;
+      opacity: 0.8;
+    }
     .prompt-container {
       display: flex;
       flex-wrap: wrap;
@@ -167,17 +172,24 @@
 </head>
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
+
   <div id="home" class="home-container">
+    <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
+
   <div id="incheon-utd" class="main-layout">
     <div class="sidebar" id="sidebar"></div>
-    <div class="main-content" id="main-content"></div>
+    <div class="main-content" id="main-content">
+      <img src="./IUFC.png" alt="인천유나이티드 엠블럼">
+    </div>
   </div>
+
   <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
   </div>
+
   <script>
     function goHome() {
       document.getElementById('home').style.display = 'flex';
