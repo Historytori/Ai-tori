@@ -150,8 +150,8 @@
       height: 80px;
       background-color: #1d4b7b;
       color: white;
-      font-size: 0.9rem;
       font-weight: bold;
+      font-size: 0.9rem;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -159,7 +159,13 @@
   </style>
 </head>
 <body>
-  <!-- 과정 화면 -->
+  <!-- 과정 선택 화면 -->
+  <div id="home" class="home-container">
+    <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
+    <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
+  </div>
+
+  <!-- 인천UTD 서포터즈 과정 화면 -->
   <div id="incheon-utd" class="main-layout">
     <div class="sidebar">
       <h3>✓ 생성AI 사이트</h3>
@@ -234,7 +240,7 @@
       const container = document.getElementById('prompt-container');
       const image = document.getElementById('default-image');
       container.innerHTML = `
-        <div class="prompt-box" style="width: 100%;">
+        <div class="prompt-box">
           <ul style="line-height: 1.8;">
             <li><a href="https://chatgpt.com/" target="_blank">1. ChatGPT(대화형AI)</a></li>
             <li><a href="https://copilot.cloud.microsoft/" target="_blank">2. Copilot(대화형AI)</a></li>
@@ -267,31 +273,28 @@
     }
 
     function showNapkin() {
-      showSinglePrompt("축구를 잘하는 방법을 설명해 줘");
-      highlightSidebar('Napkin AI 실습');
+      const text = "축구를 잘하는 방법을 설명해 줘";
+      showSinglePrompt(text, 'Napkin AI 실습');
     }
 
     function showGamma() {
-      showSinglePrompt(`지금 업로드한 pdf로 ppt를 만들려고해, 
+      const text = `지금 업로드한 pdf로 ppt를 만들려고해, 
 pdf를 8페이지 분량으로 구조화해서 요약해 줘,
-출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘`);
-      highlightSidebar('감마 실습');
+출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘`;
+      showSinglePrompt(text, '감마 실습');
     }
 
-    function showSinglePrompt(promptText) {
+    function showSinglePrompt(text, keyword) {
       const container = document.getElementById('prompt-container');
       const image = document.getElementById('default-image');
       container.innerHTML = `
         <div class="prompt-box">
-          <div style="white-space: pre-wrap;">${promptText}</div>
-          <button onclick="copyText(\`${promptText.replace(/`/g, '\\`')}\`)">복사하기</button>
+          <div style="white-space: pre-wrap;">${text}</div>
+          <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
         </div>
       `;
       image.style.display = 'none';
       container.style.display = 'block';
-    }
-
-    function highlightSidebar(keyword) {
       removeSidebarActive();
       document.querySelectorAll('.sidebar li').forEach(li => {
         if (li.textContent.includes(keyword)) {
@@ -302,40 +305,6 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘,
 
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
-        alert('프롬프트가 복사되었습니다!');
-      });
-    }
-
-    function showPrompts() {
-      const prompts = [
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.",
-        "Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm\n설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines.",
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. Suno에 입력할 프롬프트를 첨부할게. 해당 느낌을 학습해서 가사를 써줘. 인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게.\n키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사"
-      ];
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      container.innerHTML = '';
-      prompts.forEach((text, index) => {
-        const promptBox = document.createElement('div');
-        promptBox.className = 'prompt-box';
-        promptBox.innerHTML = `
-          <div style="white-space: pre-wrap;">${text}</div>
-          <button onclick="copyPrompt(${index})">복사하기</button>
-        `;
-        container.appendChild(promptBox);
-      });
-      image.style.display = 'none';
-      container.style.display = 'block';
-      highlightSidebar('응원가 만들기');
-    }
-
-    function copyPrompt(index) {
-      const prompts = [
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.",
-        "Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm\n설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines.",
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. Suno에 입력할 프롬프트를 첨부할게. 해당 느낌을 학습해서 가사를 써줘. 인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게.\n키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사"
-      ];
-      navigator.clipboard.writeText(prompts[index]).then(() => {
         alert("프롬프트가 복사되었습니다!");
       });
     }
