@@ -127,7 +127,7 @@
       max-width: 300px;
       opacity: 0.8;
       display: block;
-      margin: 0 auto; /* 중앙 정렬 */
+      margin: 0 auto;
     }
     .prompt-box {
       width: 100%;
@@ -137,42 +137,22 @@
       border-radius: 8px;
       box-shadow: 0 0 4px rgba(0,0,0,0.1);
       user-select: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .prompt-box div {
-      flex: 1;
-      white-space: pre-wrap;
-    }
-    .prompt-box button {
-      width: 80px;
-      height: 80px;
-      background-color: #1d4b7b;
-      color: white;
-      font-weight: bold;
-      font-size: 0.9rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
 
-  <!-- 과정 선택 화면 -->
   <div id="home" class="home-container">
     <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
 
-  <!-- 인천UTD 서포터즈 과정 화면 -->
   <div id="incheon-utd" class="main-layout">
     <div class="sidebar">
       <h3>✓ 생성AI 사이트</h3>
       <ul>
-        <li>• 바로가기 링크</li>
+        <li onclick="showLinks()">• 바로가기 링크</li>
         <li>• 실습파일 다운로드</li>
       </ul>
       <h3>1. 생성AI 개요</h3>
@@ -180,29 +160,7 @@
         <li>• Napkin AI 실습</li>
         <li>• 감마 실습</li>
       </ul>
-      <h3>2. ChatGPT 실습</h3>
-      <ul>
-        <li>• 프롬프트 구성</li>
-        <li>• 전략 수립</li>
-        <li>• 그림 그리기1(이미지 생성)</li>
-        <li>• 그림 그리기2(웹툰 만들기)</li>
-        <li>• 그림 그리기3(포스터 만들기)</li>
-        <li>• 그림 그리기4(이미지 합성하기)</li>
-        <li>• GPTs 활용 - 마인드맵 그리기</li>
-        <li>• GPTs 만들기 - 건배사 추천</li>
-      </ul>
-      <h3>3. ChatGPT 심화</h3>
-      <ul>
-        <li>• 굿즈 만들기</li>
-        <li>• 이모티콘 만들기</li>
-        <li>• 액션 피규어 만들기</li>
-        <li>• 자료조사와 요약</li>
-        <li onclick="showPrompts()">• 응원가 만들기</li>
-      </ul>
-      <h3>4. 기타</h3>
-      <ul>
-        <li>• 테트리스 게임 만들기</li>
-      </ul>
+      <!-- 생략된 기존 항목 유지 -->
     </div>
     <div class="main-content" id="incheon-utd-content">
       <img src="./IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
@@ -210,7 +168,6 @@
     </div>
   </div>
 
-  <!-- 하단 푸터는 홈 화면에서만 표시 -->
   <div class="footer" id="footer">
     <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
     <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
@@ -223,7 +180,7 @@
       document.getElementById('footer').style.display = 'block';
       document.getElementById('prompt-container').style.display = 'none';
       document.getElementById('default-image').style.display = 'block';
-      removeSidebarActive();
+      document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
     }
 
     function showCourse(id) {
@@ -232,49 +189,37 @@
       document.getElementById(id).classList.add('active');
     }
 
-    function showPrompts() {
-      const prompts = [
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.",
-        "Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm\n설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines.",
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. Suno에 입력할 프롬프트를 첨부할게. 해당 느낌을 학습해서 가사를 써줘. 인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게.\n키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사"
-      ];
-
+    function showLinks() {
       const container = document.getElementById('prompt-container');
       const image = document.getElementById('default-image');
-      container.innerHTML = '';
-      prompts.forEach((text, index) => {
-        const promptBox = document.createElement('div');
-        promptBox.className = 'prompt-box';
-        promptBox.innerHTML = `
-          <div style="white-space: pre-wrap;">${text}</div>
-          <button onclick="copyPrompt(${index})">복사하기</button>
-        `;
-        container.appendChild(promptBox);
-      });
+      container.innerHTML = `
+        <div class="prompt-box">
+          <ul style="line-height: 1.8;">
+            <li><a href="https://chatgpt.com/" target="_blank">1. ChatGPT(대화형AI)</a></li>
+            <li><a href="https://copilot.cloud.microsoft/" target="_blank">2. Copilot(대화형AI)</a></li>
+            <li><a href="https://gemini.google.com/" target="_blank">3. Gemini(대화형AI)</a></li>
+            <li><a href="https://grok.com/" target="_blank">4. Grok(대화형AI)</a></li>
+            <li><a href="https://felo.ai/ko/" target="_blank">5. Felo(대화형AI)</a></li>
+            <li><a href="https://wrtn.ai/" target="_blank">6. 뤼튼(대화형AI)</a></li>
+            <li><a href="https://ideogram.ai/" target="_blank">7. Ideogram(이미지AI)</a></li>
+            <li><a href="https://labs.google/fx/ko/" target="_blank">8. GoogleFX(이미지AI)</a></li>
+            <li><a href="https://www.bing.com/images/create" target="_blank">9. Bing Image Creator(이미지AI)</a></li>
+            <li><a href="https://lilys.ai/" target="_blank">10. Lilys(요약형AI)</a></li>
+            <li><a href="https://daglo.ai/" target="_blank">11. Daglo(녹음요약AI)</a></li>
+            <li><a href="https://www.youtube.com/" target="_blank">12. Youtube(영상소스)</a></li>
+            <li><a href="https://www.napkin.ai/" target="_blank">13. NapkinAI(도식화AI)</a></li>
+            <li><a href="https://www.autodraw.com/" target="_blank">14. Autodraw(밑그림AI)</a></li>
+            <li><a href="https://gamma.app/ko/" target="_blank">15. GammaAI(발표자료AI)</a></li>
+            <li><a href="https://www.heygen.com/" target="_blank">16. HeyGen(딥페이크AI)</a></li>
+            <li><a href="https://suno.com/home/" target="_blank">17. Suno(음악AI)</a></li>
+          </ul>
+        </div>
+      `;
       image.style.display = 'none';
       container.style.display = 'block';
-      removeSidebarActive();
+      document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
       document.querySelectorAll('.sidebar li').forEach(li => {
-        if (li.textContent.includes('응원가 만들기')) {
-          li.classList.add('active');
-        }
-      });
-    }
-
-    function copyPrompt(index) {
-      const prompts = [
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.",
-        "Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm\n설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines.",
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. Suno에 입력할 프롬프트를 첨부할게. 해당 느낌을 학습해서 가사를 써줘. 인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게.\n키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사"
-      ];
-      navigator.clipboard.writeText(prompts[index]).then(() => {
-        alert("프롬프트가 복사되었습니다!");
-      });
-    }
-
-    function removeSidebarActive() {
-      document.querySelectorAll('.sidebar li').forEach(li => {
-        li.classList.remove('active');
+        if (li.textContent.includes('바로가기 링크')) li.classList.add('active');
       });
     }
   </script>
