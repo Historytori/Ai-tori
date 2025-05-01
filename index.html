@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>생성AI 실습 프롬프트</title>
   <style>
     @font-face {
@@ -161,16 +161,128 @@
 </head>
 <body>
   <header onclick="goHome()">생성AI 실습 프롬프트</header>
+  <!-- 이하 내용은 다음 파트에 이어서 제공합니다. -->
+  <script>
+  function showPromptFromSidebar(title, promptList) {
+    const container = document.getElementById('prompt-container');
+    const image = document.getElementById('default-image');
+    container.innerHTML = '';
+    promptList.forEach((text, index) => {
+      const box = document.createElement('div');
+      box.className = 'prompt-box';
+      box.innerHTML = `
+        <div style="white-space: pre-wrap;">${text}</div>
+        <button onclick="copyText(\`${text.replace(/`/g, '\`')}\`)">바로가기</button>
+      `;
+      container.appendChild(box);
+    });
+    image.style.display = 'none';
+    container.style.display = 'block';
+    removeSidebarActive();
+    document.querySelectorAll('.sidebar li').forEach(li => {
+      if (li.textContent.includes(title)) li.classList.add('active');
+    });
+  }
 
+  document.querySelectorAll('.sidebar li').forEach(li => {
+    li.addEventListener('click', () => {
+      const text = li.textContent.trim();
+      if (text === '• 프롬프트 구성') {
+        showPromptFromSidebar('프롬프트 구성', [
+          "넌 인하대 대학병원 외과 의사야!   \n나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.\n규칙적인 재활과 평소 운동습관을 개선해야 하는데, \n너무 많은 정보들로 인해 어떻게 해야 할 지 모르겠어\n전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?"
+        ]);
+      } else if (text === '• 전략 수립') {
+        showPromptFromSidebar('전략 수립', [
+          "너는 프렌차이즈 컨설턴트야,   \n나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해, 축구 경기 때문에 주말에 유동인구가 많고 \n주변에 아파트가 많아, \n비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?\n그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘."
+        ]);
+      } else if (text === '• 그림 그리기1(이미지 생성)') {
+        showPromptFromSidebar('그림 그리기1', [
+          "다음 내용으로 이미지를 생성해 줘  \n- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어 \n- 스타일 : 리얼리스틱\n- 비율 : 16:9",
+          "갈매기를 두루미(학)로 바꿔줘."
+        ]);
+      } else if (text === '• 그림 그리기2(웹툰 만들기)') {
+        showPromptFromSidebar('그림 그리기2', [
+          "축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.",
+          "위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.   \n게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘."
+        ]);
+      } else if (text === '• 그림 그리기3(포스터 만들기)') {
+        showPromptFromSidebar('그림 그리기3', [
+          "첨부한 사진은 영화<비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘."
+        ]);
+      } else if (text === '• 그림 그리기4(이미지 합성하기)') {
+        showPromptFromSidebar('그림 그리기4', [
+          "첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘."
+        ]);
+      } else if (text === '• GPTs 활용 - 마인드맵 그리기') {
+        showPromptFromSidebar('GPTs 활용', [
+          "이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘."
+        ]);
+      }
+    });
+  });
+</script>
+<!-- 계속된 코드 이어쓰기 -->
 <script>
-  // 기존 copyText, removeSidebarActive, goHome, showCourse, showLinks, showGamma, showNapkin 유지
+  function showPromptConfig() {
+    const text = `넌 인하대 대학병원 외과 의사야!  
+나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.
+규칙적인 재활과 평소 운동습관을 개선해야 하는데,  
+너무 많은 정보들로 인해 어떻게 해야 할 지 모르겠어.
+전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야 하는지 표로 작성해줄래?`;
+    showSinglePrompt(text, '프롬프트 구성');
+  }
 
-  function showPromptFromText(text, label) {
+  function showStrategy() {
+    const text = `너는 프렌차이즈 컨설턴트야,  
+나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해,
+축구 경기 때문에 주말에 유동인구가 많고  
+주변에 아파트가 많아,  
+비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
+그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`;
+    showSinglePrompt(text, '전략 수립');
+  }
+
+  function showDrawing1() {
+    const prompts = [
+      `다음 내용으로 이미지를 생성해 줘
+- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어
+- 스타일 : 리얼리스틱
+- 비율 : 16:9`,
+      `갈매기를 두루미(학)로 바꿔줘.`
+    ];
+    showMultiplePrompts(prompts, '그림 그리기1');
+  }
+
+  function showWebtoon() {
+    const prompts = [
+      `축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.`,
+      `위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.  
+게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.`
+    ];
+    showMultiplePrompts(prompts, '그림 그리기2');
+  }
+
+  function showPoster() {
+    const text = `첨부한 사진은 영화<비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘.`;
+    showSinglePrompt(text, '그림 그리기3');
+  }
+
+  function showImageMerge() {
+    const text = `첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`;
+    showSinglePrompt(text, '그림 그리기4');
+  }
+
+  function showMindmap() {
+    const text = `이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘`;
+    showSinglePrompt(text, '마인드맵');
+  }
+
+  function showSinglePrompt(text, label) {
     const container = document.getElementById('prompt-container');
     const image = document.getElementById('default-image');
     container.innerHTML = `
       <div class="prompt-box">
-        <div style="white-space: pre-wrap; font-size: 1rem;">${text}</div>
+        <div style="white-space: pre-wrap;">${text}</div>
         <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
       </div>
     `;
@@ -182,46 +294,15 @@
     });
   }
 
-  // 프롬프트 구성
-  document.querySelectorAll('.sidebar li').forEach(li => {
-    if (li.textContent.includes('프롬프트 구성')) {
-      li.setAttribute('onclick', "showPromptFromText(`넌 인하대 대학병원 외과 의사야!\n나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.\n규칙적인 재활과 평소 운동습관을 개선해야 하는데,\n너무 많은 정보들로 인해 어떻게 해야할 지 모르겠어\n전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?`, '프롬프트 구성')");
-    }
-    if (li.textContent.includes('전략 수립')) {
-      li.setAttribute('onclick', "showPromptFromText(`너는 프렌차이즈 컨설턴트야,\n나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해, 축구 경기 때문에 주말에 유동인구가 많고\n주변에 아파트가 많아,\n비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?\n그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`, '전략 수립')");
-    }
-    if (li.textContent.includes('그림 그리기1')) {
-      li.setAttribute('onclick', `showPromptGroup([
-        `다음 내용으로 이미지를 생성해 줘\n- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어\n- 스타일 : 리얼리스틱\n- 비율 : 16:9`,
-        `갈매기를 두루미(학)로 바꿔줘.`
-      ], '그림 그리기1')`);
-    }
-    if (li.textContent.includes('그림 그리기2')) {
-      li.setAttribute('onclick', `showPromptGroup([
-        `축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.`,
-        `위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.\n게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.`
-      ], '그림 그리기2')`);
-    }
-    if (li.textContent.includes('그림 그리기3')) {
-      li.setAttribute('onclick', `showPromptFromText(`첨부한 사진은 영화<비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘.`, '그림 그리기3')`);
-    }
-    if (li.textContent.includes('그림 그리기4')) {
-      li.setAttribute('onclick', `showPromptFromText(`첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`, '그림 그리기4')`);
-    }
-    if (li.textContent.includes('마인드맵')) {
-      li.setAttribute('onclick', `showPromptFromText(`이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘`, '마인드맵')`);
-    }
-  });
-
-  function showPromptGroup(prompts, label) {
+  function showMultiplePrompts(prompts, label) {
     const container = document.getElementById('prompt-container');
     const image = document.getElementById('default-image');
     container.innerHTML = '';
-    prompts.forEach(text => {
+    prompts.forEach((text, index) => {
       const promptBox = document.createElement('div');
       promptBox.className = 'prompt-box';
       promptBox.innerHTML = `
-        <div style="white-space: pre-wrap; font-size: 1rem;">${text}</div>
+        <div style="white-space: pre-wrap;">${text}</div>
         <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
       `;
       container.appendChild(promptBox);
@@ -231,78 +312,6 @@
     removeSidebarActive();
     document.querySelectorAll('.sidebar li').forEach(li => {
       if (li.textContent.includes(label)) li.classList.add('active');
-    });
-  }
-</script>
-<script>
-  // --- [2. ChatGPT 실습] 나머지 항목 추가 ---
-  const prompts2 = {
-    '프롬프트 구성': [
-      `넌 인하대 대학병원 외과 의사야!  
-나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.
-규칙적인 재활과 평소 운동습관을 개선해야 하는데,  
-너무 많은 정보들로 인해 어떻게 해야할 지 모르겠어
-전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?`
-    ],
-    '전략 수립': [
-      `너는 프렌차이즈 컨설턴트야,  
-나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해, 축구 경기 때문에 주말에 유동인구가 많고 
-주변에 아파트가 많아,  
-비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
-그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`
-    ],
-    '그림 그리기1(이미지 생성)': [
-      `다음 내용으로 이미지를 생성해 줘
-- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어 
-- 스타일 : 리얼리스틱
-- 비율 : 16:9`,
-      `갈매기를 두루미(학)로 바꿔줘.`
-    ],
-    '그림 그리기2(웹툰 만들기)': [
-      `축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.`,
-      `위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.  
-게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.`
-    ],
-    '그림 그리기3(포스터 만들기)': [
-      `첨부한 사진은 영화<비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘.`
-    ],
-    '그림 그리기4(이미지 합성하기)': [
-      `첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`
-    ],
-    'GPTs 활용 - 마인드맵 그리기': [
-      `이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘 `
-    ]
-  };
-
-  // 클릭 이벤트 바인딩
-  Object.keys(prompts2).forEach(key => {
-    document.querySelectorAll('.sidebar li').forEach(li => {
-      if (li.textContent.trim().includes(key)) {
-        li.onclick = () => {
-          const container = document.getElementById('prompt-container');
-          const image = document.getElementById('default-image');
-          container.innerHTML = '';
-          prompts2[key].forEach((text, index) => {
-            const box = document.createElement('div');
-            box.className = 'prompt-box';
-            box.innerHTML = `
-              <div style="white-space: pre-wrap;">${text}</div>
-              <button onclick="copyPromptDynamic(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
-            `;
-            container.appendChild(box);
-          });
-          image.style.display = 'none';
-          container.style.display = 'block';
-          removeSidebarActive();
-          li.classList.add('active');
-        };
-      }
-    });
-  });
-
-  function copyPromptDynamic(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert("프롬프트가 복사되었습니다!");
     });
   }
 </script>
