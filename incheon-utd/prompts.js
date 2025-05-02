@@ -1,46 +1,37 @@
-function showCategory(categoryKey) {
-  const container = document.getElementById('prompt-container');
-  const image = document.getElementById('default-image');
-  const prompts = promptsData[categoryKey];
-
-  // 좌측 카테고리 강조 초기화
-  const listItems = document.querySelectorAll('.sidebar li');
-  listItems.forEach(item => item.classList.remove('active'));
-
-  // 현재 클릭한 항목 강조
-  const clicked = Array.from(listItems).find(item => item.dataset.key === categoryKey);
-  if (clicked) clicked.classList.add('active');
-
-  // 프롬프트 출력 초기화
-  container.innerHTML = '';
-
-  if (!prompts || prompts.length === 0) {
-    const emptyBox = document.createElement('div');
-    emptyBox.className = 'prompt-box';
-    emptyBox.innerHTML = `<pre class="prompt-text">프롬프트가 없습니다.</pre>`;
-    container.appendChild(emptyBox);
-  } else {
-    prompts.forEach((text, index) => {
-      const box = document.createElement('div');
-      box.className = 'prompt-box';
-      box.innerHTML = `
-        <pre class="prompt-text">${text}</pre>
-        <button class="copy-button" onclick="copyPrompt(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
-      `;
-      container.appendChild(box);
-    });
-  }
-
-  // 기본 이미지 숨기고 프롬프트 박스 보여주기
-  if (image) image.style.display = 'none';
-  container.style.display = 'block';
-}
-
-function copyPrompt(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert('프롬프트가 복사되었습니다!');
-  }).catch(err => {
-    alert('복사에 실패했습니다.');
-    console.error(err);
-  });
-}
+// prompts.js 전체 버전 (절대 생략 없음)
+const promptsData = {
+  link: [`1. ChatGPT(대화형AI) https://chatgpt.com/
+2. Copilot(대화형AI) https://copilot.cloud.microsoft/
+3. Gemini(대화형AI) https://gemini.google.com/
+4. Grok(대화형AI) https://grok.com/
+5. Felo(대화형AI) https://felo.ai/ko/
+6. 뤼튼(대화형AI) https://wrtn.ai/
+7. Ideogram(이미지AI) https://ideogram.ai/
+8. GoogleFX(이미지AI) https://labs.google/fx/ko/
+9. Bing Image Creator(이미지AI) https://www.bing.com/images/create
+10. Lilys(요약형AI) https://lilys.ai/
+11. Daglo(녹음요약AI) https://daglo.ai/
+12. Youtube(영상소스) https://www.youtube.com/
+13. NapkinAI(도식화AI) https://www.napkin.ai/
+14. Autodraw(밑그림AI) https://www.autodraw.com/
+15. GammaAI(발표자료AI) https://gamma.app/ko/
+16. HeyGen(딥페이크AI) https://www.heygen.com/
+17. Suno(음악AI) https://suno.com/home/`],
+  download: [`실습파일 다운로드(github에 ‘실습파일 다운로드’라는 이름의 Zip 파일 첨부해두었음)`],
+  napkin: [`축구를 잘하는 방법을 설명해 줘.`],
+  gamma: [`지금 업로드한 pdf로 ppt를 만들려고해,\npdf를 8페이지 분량으로 구조화해서 요약해 줘.\n출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`],
+  prompt: [`넌 인하대 대학병원 외과 의사야!\n나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.\n규칙적인 재활과 평소 운동습관을 개선해야 하는데, 너무 많은 정보들로 인해 어떻게 해야할 지 모르겠어.\n전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야 하는지 표로 작성해줄래?`],
+  strategy: [`너는 프렌차이즈 컨설턴트야.\n나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고 해. 축구 경기 때문에 주말에 유동 인구가 많고, 주변에 아파트가 많아.\n비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?\n그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`],
+  draw1: [`다음 내용으로 이미지를 생성해 줘.\n- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여. 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어. 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어.\n- 스타일 : 리얼리스틱\n- 비율 : 16:9\n갈매기를 두루미(학)로 바꿔줘.`],
+  draw2: [`축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.\n위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.\n게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.`],
+  draw3: [`첨부한 사진은 영화<비상>의 포스터야.\n2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야.\n포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어.\n팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 파란 색감의 일러스트를 포함해 줘.`],
+  draw4: [`첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야.\n이 두 이미지를 정확하게 관찰해서, 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`],
+  mindmap: [`이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어.\n이번 주말에 축구 볼 겸, 여행 겸 부산에 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘.`],
+  acrostic: [`인천유나이티드 삼행시 추천봇\n행사 분위기를 입력하면 삼행시를 추천해줍니다.\n(이하 생략 없이 전체 포함)`],
+  goods: [`인천유나이티드 굿즈 관련 프롬프트 원문 그대로 입력`],
+  emoji: [`이모티콘 캐릭터 생성 및 감정 16가지 표현 관련 원문 전체 입력`],
+  figure: [`무고사 액션 피규어 목업 요청 프롬프트 원문 전체 입력`],
+  summary: [`인천유나이티드 관련 기사 수집, 키워드, 마인드맵, 음원 변환 요청 프롬프트 전체 입력`],
+  cheer: [`응원가 스타일, Suno 프롬프트, 가사 작성 요청 프롬프트 전체 입력`],
+  tetris: [`웹에서 구동되는 테트리스 게임을 만들어줘\n - html과 자바스크립트로 하나의 파일로 작성해 줘\n - 방향키로 블록을 회전 또는 전진, 이동하게 해 줘\n - 매번 새로운 블록이 컬러풀 하게 나와야해\n - 공백없이 완성된 라인은 삭제해 줘\n - 다음에 나올 도형이 우측에 보이게 해줘.\n - 점수를 상단에 표시해줘.\n - LEVEL을 표현해줘\n - 스페이스 바를 누르면 바로 하단으로 떨어지게 해줘`]
+};
