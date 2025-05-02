@@ -10,9 +10,18 @@
       font-family: 'Freesentation', sans-serif;
       background-color: #f2f2f2;
     }
+    .header {
+      background-color: #1d4b7b;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+    }
     .layout {
       display: flex;
-      height: 100vh;
+      height: calc(100vh - 80px);
     }
     .sidebar {
       width: 300px;
@@ -87,6 +96,7 @@
   </style>
 </head>
 <body>
+  <div class="header" onclick="location.reload()">AI 실습 프롬프트</div>
   <div class="layout">
     <div class="sidebar" id="category-list">
       <h3>✓ 생성AI 사이트</h3>
