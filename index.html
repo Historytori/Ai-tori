@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>생성AI 실습 프롬프트</title>
   <style>
     @font-face {
@@ -137,25 +137,6 @@
       border-radius: 8px;
       box-shadow: 0 0 4px rgba(0,0,0,0.1);
       user-select: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .prompt-box div {
-      flex: 1;
-      white-space: pre-wrap;
-    }
-    .prompt-box button {
-      width: 80px;
-      height: 80px;
-      background-color: #1d4b7b;
-      color: white;
-      font-weight: bold;
-      font-size: 0.9rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      flex-shrink: 0;
     }
   </style>
 </head>
@@ -166,222 +147,117 @@
     <div class="course-card" onclick="showCourse('ai-course')">AI 속성 이해과정</div>
     <div class="course-card" onclick="showCourse('incheon-utd')">인천UTD 서포터즈 과정</div>
   </div>
-  <div id="incheon-utd" class="main-layout">
-    <div class="sidebar">
-      <h3>✓ 생성AI 사이트</h3>
-      <ul>
-        <li onclick="showLinks()">• 바로가기 링크</li>
-        <li>• 실습파일 다운로드</li>
-      </ul>
-      <h3>1. 생성AI 개요</h3>
-      <ul>
-        <li onclick="showNapkin()">• Napkin AI 실습</li>
-        <li onclick="showGamma()">• 감마 실습</li>
-      </ul>
-      <h3>2. ChatGPT 실습</h3>
-      <ul>
-        <li onclick="showPromptGusung()">• 프롬프트 구성</li>
-        <li onclick="showStrategy()">• 전략 수립</li>
-        <li onclick="showDraw1()">• 그림 그리기1(이미지 생성)</li>
-        <li onclick="showDraw2()">• 그림 그리기2(웹툰 만들기)</li>
-        <li onclick="showDraw3()">• 그림 그리기3(포스터 만들기)</li>
-        <li onclick="showDraw4()">• 그림 그리기4(이미지 합성하기)</li>
-        <li onclick="showMindmap()">• GPTs 활용 - 마인드맵 그리기</li>
-        <li>• GPTs 만들기 - 건배사 추천</li>
-      </ul>
-      <h3>3. ChatGPT 심화</h3>
-      <ul>
-        <li>• 굿즈 만들기</li>
-        <li>• 이모티콘 만들기</li>
-        <li>• 액션 피규어 만들기</li>
-        <li>• 자료조사와 요약</li>
-        <li onclick="showPrompts()">• 응원가 만들기</li>
-      </ul>
-      <h3>4. 기타</h3>
-      <ul>
-        <li>• 테트리스 게임 만들기</li>
-      </ul>
-    </div>
-    <div class="main-content" id="incheon-utd-content">
-      <img src="./IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
-      <div id="prompt-container" style="display:none;"></div>
-    </div>
-  </div>
-  <div class="footer" id="footer">
-    <img src="./AIcho.png" alt="AI 캐릭터" class="footer-image">
-    <p><strong>AI작이 반입니다. AI토리가 응원합니다.</strong></p>
-  </div>
-
-  <script>
-    function goHome() {
-      document.getElementById('home').style.display = 'flex';
-      document.getElementById('incheon-utd').classList.remove('active');
-      document.getElementById('footer').style.display = 'block';
-      document.getElementById('prompt-container').style.display = 'none';
-      document.getElementById('default-image').style.display = 'block';
-      removeSidebarActive();
-    }
-
-    function showCourse(id) {
-      document.getElementById('home').style.display = 'none';
-      document.getElementById('footer').style.display = 'none';
-      document.getElementById(id).classList.add('active');
-    }
-
-    function removeSidebarActive() {
-      document.querySelectorAll('.sidebar li').forEach(li => {
-        li.classList.remove('active');
-      });
-    }
-
-    function createPromptBox(text) {
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      container.innerHTML = `
-        <div class="prompt-box">
-          <div style="white-space: pre-wrap;">${text}</div>
-          <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
-        </div>
+<script>
+  function showPromptCategory(category, prompts) {
+    const container = document.getElementById("prompt-container");
+    const image = document.getElementById("default-image");
+    container.innerHTML = "";
+    prompts.forEach((text, index) => {
+      const promptBox = document.createElement("div");
+      promptBox.className = "prompt-box";
+      promptBox.innerHTML = `
+        <div style="white-space: pre-wrap;">${text}</div>
+        <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
       `;
-      image.style.display = 'none';
-      container.style.display = 'block';
+      container.appendChild(promptBox);
+    });
+    image.style.display = "none";
+    container.style.display = "block";
+    removeSidebarActive();
+    document.querySelectorAll(".sidebar li").forEach(li => {
+      if (li.textContent.includes(category)) {
+        li.classList.add("active");
+      }
+    });
+  }
+
+  function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("프롬프트가 복사되었습니다!");
+    });
+  }
+
+  function showPromptConfig() {
+    showPromptCategory("프롬프트 구성", [
+      `넌 인하대 대학병원 외과 의사야!  
+나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.
+규칙적인 재활과 평소 운동습관을 개선해야 하는데,
+너무 많은 정보들로 인해 어떻게 해야할 지 모르겠어
+전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?`
+    ]);
+  }
+
+  function showStrategy() {
+    showPromptCategory("전략 수립", [
+      `너는 프렌차이즈 컨설턴트야,  
+나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해, 축구 경기 때문에 주말에 유동인구가 많고 
+주변에 아파트가 많아, 
+비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
+그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`
+    ]);
+  }
+
+  function showDrawing1() {
+    showPromptCategory("그림 그리기1", [
+      `다음 내용으로 이미지를 생성해 줘  
+- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어 
+- 스타일 : 리얼리스틱
+- 비율 : 16:9`,
+      `갈매기를 두루미(학)로 바꿔줘.`
+    ]);
+  }
+
+  function showDrawing2() {
+    showPromptCategory("그림 그리기2", [
+      `축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.`,
+      `위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.  
+게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.`
+    ]);
+  }
+
+  function showDrawing3() {
+    showPromptCategory("그림 그리기3", [
+      `첨부한 사진은 영화<비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘.`
+    ]);
+  }
+
+  function showDrawing4() {
+    showPromptCategory("그림 그리기4", [
+      `첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`
+    ]);
+  }
+
+  function showMindmap() {
+    showPromptCategory("마인드맵", [
+      `이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘 `
+    ]);
+  }
+</script>
+    function showPromptCategory(prompts, label) {
+      const container = document.getElementById("prompt-container");
+      const image = document.getElementById("default-image");
+      container.innerHTML = "";
+      prompts.forEach((text, i) => {
+        const promptBox = document.createElement("div");
+        promptBox.className = "prompt-box";
+        promptBox.innerHTML = `
+          <div style="white-space: pre-wrap;">${text}</div>
+          <button onclick="copyText(\`${text.replace(/`/g, "\\`")}\`)" style="width: 80px; height: 80px; background-color: #1d4b7b; color: white; font-weight: bold; font-size: 0.9rem; border: none; border-radius: 8px; cursor: pointer; flex-shrink: 0;">복사하기</button>
+        `;
+        container.appendChild(promptBox);
+      });
+      image.style.display = "none";
+      container.style.display = "block";
+      removeSidebarActive();
+      document.querySelectorAll(".sidebar li").forEach((li) => {
+        if (li.textContent.includes(label)) li.classList.add("active");
+      });
     }
 
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("프롬프트가 복사되었습니다!");
       });
-    }
-
-    function showLinks() {
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      container.innerHTML = `
-        <div class="prompt-box">
-          <ul style="line-height: 1.8; width: 100%;">
-            <li><strong>1. ChatGPT</strong> - <a href="https://chatgpt.com/" target="_blank">https://chatgpt.com/</a></li>
-            <li><strong>2. Copilot</strong> - <a href="https://copilot.cloud.microsoft/" target="_blank">https://copilot.cloud.microsoft/</a></li>
-            <li><strong>3. Gemini</strong> - <a href="https://gemini.google.com/" target="_blank">https://gemini.google.com/</a></li>
-            <li><strong>4. Grok</strong> - <a href="https://grok.com/" target="_blank">https://grok.com/</a></li>
-            <li><strong>5. Felo</strong> - <a href="https://felo.ai/ko/" target="_blank">https://felo.ai/ko/</a></li>
-            <li><strong>6. 뤼튼</strong> - <a href="https://wrtn.ai/" target="_blank">https://wrtn.ai/</a></li>
-            <li><strong>7. Ideogram</strong> - <a href="https://ideogram.ai/" target="_blank">https://ideogram.ai/</a></li>
-            <li><strong>8. GoogleFX</strong> - <a href="https://labs.google/fx/ko/" target="_blank">https://labs.google/fx/ko/</a></li>
-            <li><strong>9. Bing Image Creator</strong> - <a href="https://www.bing.com/images/create" target="_blank">https://www.bing.com/images/create</a></li>
-            <li><strong>10. Lilys</strong> - <a href="https://lilys.ai/" target="_blank">https://lilys.ai/</a></li>
-            <li><strong>11. Daglo</strong> - <a href="https://daglo.ai/" target="_blank">https://daglo.ai/</a></li>
-            <li><strong>12. Youtube</strong> - <a href="https://www.youtube.com/" target="_blank">https://www.youtube.com/</a></li>
-            <li><strong>13. NapkinAI</strong> - <a href="https://www.napkin.ai/" target="_blank">https://www.napkin.ai/</a></li>
-            <li><strong>14. Autodraw</strong> - <a href="https://www.autodraw.com/" target="_blank">https://www.autodraw.com/</a></li>
-            <li><strong>15. GammaAI</strong> - <a href="https://gamma.app/ko/" target="_blank">https://gamma.app/ko/</a></li>
-            <li><strong>16. HeyGen</strong> - <a href="https://www.heygen.com/" target="_blank">https://www.heygen.com/</a></li>
-            <li><strong>17. Suno</strong> - <a href="https://suno.com/home/" target="_blank">https://suno.com/home/</a></li>
-          </ul>
-        </div>
-      `;
-      image.style.display = 'none';
-      container.style.display = 'block';
-      removeSidebarActive();
-      document.querySelectorAll('.sidebar li').forEach(li => {
-        if (li.textContent.includes('바로가기 링크')) li.classList.add('active');
-      });
-    }
-
-    function showNapkin() {
-      createPromptBox("축구를 잘하는 방법을 설명해 줘");
-      highlightSidebar("Napkin AI 실습");
-    }
-
-    function showGamma() {
-      createPromptBox("지금 업로드한 pdf로 ppt를 만들려고해,\npdf를 8페이지 분량으로 구조화해서 요약해 줘,\n출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘");
-      highlightSidebar("감마 실습");
-    }
-
-    function highlightSidebar(label) {
-      removeSidebarActive();
-      document.querySelectorAll('.sidebar li').forEach(li => {
-        if (li.textContent.includes(label)) li.classList.add('active');
-      });
-    }
-    function showPrompt 구성() {
-      createPromptBox(`넌 인하대 대학병원 외과 의사야!   
-나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.
-규칙적인 재활과 평소 운동습관을 개선해야 하는데, 
-너무 많은 정보들로 인해 어떻게 해야할 지 모르겠어
-전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서 평소 운동을 어떻게 해야하는지 표로 작성해줄래?`);
-      highlightSidebar("프롬프트 구성");
-    }
-
-    function show전략수립() {
-      createPromptBox(`너는 프렌차이즈 컨설턴트야,   
-나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고해, 축구 경기 때문에 주말에 유동인구가 많고 
-주변에 아파트가 많아, 
-비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
-그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`);
-      highlightSidebar("전략 수립");
-    }
-
-    function show그림그리기1() {
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      const prompts = [
-`다음 내용으로 이미지를 생성해 줘  
-- 이미지 : 인천축구전용경기장을 배경으로 바다가 보여, 경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어, 바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어, 인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이 환하게 웃으며 팬들을 환영하고 있어 
-- 스타일 : 리얼리스틱
-- 비율 : 16:9`,
-"갈매기를 두루미(학)로 바꿔줘."
-      ];
-      container.innerHTML = '';
-      prompts.forEach(text => {
-        const promptBox = document.createElement('div');
-        promptBox.className = 'prompt-box';
-        promptBox.innerHTML = `
-          <div style="white-space: pre-wrap;">${text}</div>
-          <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
-        `;
-        container.appendChild(promptBox);
-      });
-      image.style.display = 'none';
-      container.style.display = 'block';
-      highlightSidebar("그림 그리기1(이미지 생성)");
-    }
-
-    function show그림그리기2() {
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      const prompts = [
-"축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.",
-`위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.   
-게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을 한국 스타일의 웹툰으로 그려줘.`
-      ];
-      container.innerHTML = '';
-      prompts.forEach(text => {
-        const promptBox = document.createElement('div');
-        promptBox.className = 'prompt-box';
-        promptBox.innerHTML = `
-          <div style="white-space: pre-wrap;">${text}</div>
-          <button onclick="copyText(\`${text.replace(/`/g, '\\`')}\`)">복사하기</button>
-        `;
-        container.appendChild(promptBox);
-      });
-      image.style.display = 'none';
-      container.style.display = 'block';
-      highlightSidebar("그림 그리기2(웹툰 만들기)");
-    }
-
-    function show그림그리기3() {
-      createPromptBox(`첨부한 사진은 영화<비상>의 포스터야. 2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를 심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야. 포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어. 팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘. 밝은 색감에 일러스트를 포함해 줘.`);
-      highlightSidebar("그림 그리기3(포스터 만들기)");
-    }
-
-    function show그림그리기4() {
-      createPromptBox(`첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야. 이 두 이미지를 정확하게 관찰해서, 첨부한 인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`);
-      highlightSidebar("그림 그리기4(이미지 합성하기)");
-    }
-
-    function show마인드맵() {
-      createPromptBox("이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어. 이번 주말에 축구 볼겸 여행겸 부산 가려고 하는데 1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘");
-      highlightSidebar("GPTs 활용 - 마인드맵 그리기");
     }
   </script>
 </body>
