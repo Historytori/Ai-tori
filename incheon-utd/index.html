@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>인천UTD 서포터즈 과정</title>
-  <link rel="stylesheet" href="../style.css"> <!-- 필요 시 외부 CSS 연결 -->
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Freesentation', sans-serif;
-      background-color: #f2f2f2;
+      padding: 0;
+      font-family: sans-serif;
     }
-    .layout {
+    body {
+      background-color: #f2f2f2;
       display: flex;
       height: 100vh;
     }
@@ -23,7 +24,7 @@
       border-right: 1px solid #ccc;
     }
     .sidebar h3 {
-      margin-bottom: 10px;
+      margin: 20px 0 10px;
       color: #1d4b7b;
     }
     .sidebar ul {
@@ -34,11 +35,11 @@
     .sidebar li {
       margin-bottom: 6px;
       cursor: pointer;
-      padding: 4px;
+      padding: 6px;
       border-radius: 4px;
     }
     .sidebar li:hover {
-      text-decoration: underline;
+      background-color: #d1ecff;
     }
     .sidebar li.active {
       background-color: #c9e6ff;
@@ -46,106 +47,257 @@
     }
     .main-content {
       flex: 1;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      padding: 30px;
       overflow-y: auto;
     }
-    .main-content img {
-      max-width: 300px;
-      opacity: 0.8;
-      display: block;
-      margin: 0 auto;
-    }
     .prompt-box {
-      width: 100%;
-      background: white;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
       padding: 20px;
       margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      width: 100%;
+      position: relative;
       user-select: none;
     }
-    button {
-      margin-top: 10px;
-      padding: 6px 12px;
-      background: #1d4b7b;
+    .copy-btn {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background-color: #1e90ff;
       color: white;
       border: none;
-      border-radius: 4px;
+      width: 80px;
+      height: 80px;
+      font-size: 14px;
+      border-radius: 8px;
       cursor: pointer;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <div class="sidebar">
-      <h3>✓ 생성AI 사이트</h3>
-      <ul>
-        <li onclick="showLinks()">• 바로가기 링크</li>
-      </ul>
-      <h3>3. ChatGPT 심화</h3>
-      <ul>
-        <li onclick="showPrompts()">• 응원가 만들기</li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <img src="../IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
-      <div id="prompt-container" style="display:none;"></div>
-    </div>
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main-content" id="main-content">
+    <p>좌측 카테고리를 선택해주세요.</p>
   </div>
 
   <script>
-    function showLinks() {
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      container.innerHTML = `
-        <div class="prompt-box">
-          <ul style="line-height: 1.8;">
-            <li><a href="https://chatgpt.com/" target="_blank">1. ChatGPT(대화형AI)</a></li>
-            <li><a href="https://copilot.cloud.microsoft/" target="_blank">2. Copilot</a></li>
-            <li><a href="https://gemini.google.com/" target="_blank">3. Gemini</a></li>
-          </ul>
-        </div>
-      `;
-      image.style.display = 'none';
-      container.style.display = 'block';
+    const structure = {
+      "✓ 생성AI 사이트": {
+        "바로가기 링크": [
+          `1. ChatGPT(대화형AI) https://chatgpt.com/`,
+          `2. Copilot(대화형AI) https://copilot.cloud.microsoft/`,
+          `3. Gemini(대화형AI) https://gemini.google.com/`,
+          `4. Grok(대화형AI) https://grok.com/`,
+          `5. Felo(대화형AI) https://felo.ai/ko/`,
+          `6. 뤼튼(대화형AI) https://wrtn.ai/`,
+          `7. Ideogram(이미지AI) https://ideogram.ai/`,
+          `8. GoogleFX(이미지AI) https://labs.google/fx/ko/`,
+          `9. Bing Image Creator(이미지AI) https://www.bing.com/images/create`,
+          `10. Lilys(요약형AI) https://lilys.ai/`,
+          `11. Daglo(녹음요약AI) https://daglo.ai/`,
+          `12. Youtube(영상소스) https://www.youtube.com/`,
+          `13. NapkinAI(도식화AI) https://www.napkin.ai/`,
+          `14. Autodraw(밑그림AI) https://www.autodraw.com/`,
+          `15. GammaAI(발표자료AI) https://gamma.app/ko/`,
+          `16. HeyGen(딥페이크AI) https://www.heygen.com/`,
+          `17. Suno(음악AI) https://suno.com/home/`
+        ],
+        "실습파일 다운로드": [
+          `실습파일 다운로드(github에 '실습파일 다운로드'라는 이름의 Zip 파일 첨부해두었음)`
+        ]
+      },
+      "1. 생성AI 개요": {
+        "Napkin AI 실습": [
+          `축구를 잘하는 방법을 설명해 줘.`
+        ],
+        "감마 실습": [
+          `지금 업로드한 pdf로 ppt를 만들려고해, pdf를 8페이지 분량으로 구조화해서 요약해 줘. 출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`
+        ]
+      },
+      // 이하 생략 (계속 이어짐)
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인천UTD 서포터즈 과정</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    body {
+      background-color: #f2f2f2;
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 300px;
+      background-color: #e5f0f8;
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+    }
+    .sidebar h3 {
+      margin: 20px 0 10px;
+      color: #1d4b7b;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+    .sidebar li {
+      margin-bottom: 6px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 4px;
+    }
+    .sidebar li:hover {
+      background-color: #d1ecff;
+    }
+    .sidebar li.active {
+      background-color: #c9e6ff;
+      font-weight: bold;
+    }
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    .prompt-box {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      position: relative;
+      user-select: none;
+    }
+    .copy-btn {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      width: 80px;
+      height: 80px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main-content" id="main-content">
+    <p>좌측 카테고리를 선택해주세요.</p>
+  </div>
+
+  <script>
+    const structure = {
+      "✓ 생성AI 사이트": {
+        "바로가기 링크": [
+          `1. ChatGPT(대화형AI) https://chatgpt.com/`,
+          `2. Copilot(대화형AI) https://copilot.cloud.microsoft/`,
+          `3. Gemini(대화형AI) https://gemini.google.com/`,
+          `4. Grok(대화형AI) https://grok.com/`,
+          `5. Felo(대화형AI) https://felo.ai/ko/`,
+          `6. 뤼튼(대화형AI) https://wrtn.ai/`,
+          `7. Ideogram(이미지AI) https://ideogram.ai/`,
+          `8. GoogleFX(이미지AI) https://labs.google/fx/ko/`,
+          `9. Bing Image Creator(이미지AI) https://www.bing.com/images/create`,
+          `10. Lilys(요약형AI) https://lilys.ai/`,
+          `11. Daglo(녹음요약AI) https://daglo.ai/`,
+          `12. Youtube(영상소스) https://www.youtube.com/`,
+          `13. NapkinAI(도식화AI) https://www.napkin.ai/`,
+          `14. Autodraw(밑그림AI) https://www.autodraw.com/`,
+          `15. GammaAI(발표자료AI) https://gamma.app/ko/`,
+          `16. HeyGen(딥페이크AI) https://www.heygen.com/`,
+          `17. Suno(음악AI) https://suno.com/home/`
+        ],
+        "실습파일 다운로드": [
+          `실습파일 다운로드(github에 '실습파일 다운로드'라는 이름의 Zip 파일 첨부해두었음)`
+        ]
+      },
+      "1. 생성AI 개요": {
+        "Napkin AI 실습": [`축구를 잘하는 방법을 설명해 줘.`],
+        "감마 실습": [`지금 업로드한 pdf로 ppt를 만들려고해, pdf를 8페이지 분량으로 구조화해서 요약해 줘. 출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`]
+      },
+      "2. ChatGPT 실습": {
+        "프롬프트 구성": [`넌 인하대 대학병원 외과 의사야!...`],
+        "전략 수립": [`너는 프렌차이즈 컨설턴트야...`],
+        "그림 그리기1(이미지 생성)": [`다음 내용으로 이미지를 생성해 줘...`],
+        "그림 그리기2(웹툰 만들기)": [`축구 전술 중 하나인 '게겐프레싱'에 대해 웹툰으로 알려줘.`],
+        "그림 그리기3(포스터 만들기)": [`영화 <비상> 포스터를 팬 친화적으로 재구성해줘.`],
+        "그림 그리기4(이미지 합성하기)": [`손흥민 + 인천유니폼 합성 이미지 만들어줘.`],
+        "GPTs 활용 - 마인드맵 그리기": [`부산 원정 여행 1박2일 짐 마인드맵 그려줘.`],
+        "GPTs 만들기 - 삼행시 추천": [`행사에 어울리는 삼행시 추천하는 챗봇 만들어줘.`]
+      },
+      "3. ChatGPT 심화": {
+        "굿즈 만들기": [`머플러, 키링, 양말세트 등 굿즈 시안 보여줘.`],
+        "이모티콘 만들기": [`16가지 감정 표현한 이모티콘 디자인 만들어줘.`],
+        "액션 피규어 만들기": [`무고사 액션 피규어 세트를 상세하게 디자인해줘.`],
+        "자료조사와 요약": [`인천유나이티드의 전망에 대해 기사 수집, 요약, 마인드맵, 음원 생성까지.`],
+        "응원가 만들기": [`응원가 Suno 프롬프트 및 가사 생성 (키워드: 서해 바다, 파검의 용사 등)`]
+      },
+      "4. 기타": {
+        "테트리스 만들기": [`웹에서 실행되는 테트리스 게임을 자바스크립트로 만들어줘.`]
+      }
+    };
+
+    const sidebar = document.getElementById("sidebar");
+    const main = document.getElementById("main-content");
+
+    for (let category in structure) {
+      const h3 = document.createElement("h3");
+      h3.textContent = category;
+      sidebar.appendChild(h3);
+      const ul = document.createElement("ul");
+      for (let item in structure[category]) {
+        const li = document.createElement("li");
+        li.textContent = `• ${item}`;
+        li.addEventListener("click", () => {
+          document.querySelectorAll(".sidebar li").forEach(el => el.classList.remove("active"));
+          li.classList.add("active");
+          showPrompts(structure[category][item]);
+        });
+        ul.appendChild(li);
+      }
+      sidebar.appendChild(ul);
     }
 
-    function showPrompts() {
-      const prompts = [
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.",
-        "Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm",
-        "키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사"
-      ];
-      const container = document.getElementById('prompt-container');
-      const image = document.getElementById('default-image');
-      container.innerHTML = '';
-      prompts.forEach((text, index) => {
-        const box = document.createElement('div');
-        box.className = 'prompt-box';
-        box.innerHTML = `
-          <div style="white-space: pre-wrap;">${text}</div>
-          <button onclick="copyPrompt(${index})">복사하기</button>
-        `;
-        container.appendChild(box);
-      });
-      image.style.display = 'none';
-      container.style.display = 'block';
-    }
-
-    function copyPrompt(index) {
-      const prompts = [
-        "축구 구단 인천유나이티드의 응원가를 만들려고 해...",
-        "Style : 1980s Italian disco...",
-        "키워드 : 서해 바다, 파랑검정..."
-      ];
-      navigator.clipboard.writeText(prompts[index]).then(() => {
-        alert("프롬프트가 복사되었습니다!");
+    function showPrompts(prompts) {
+      main.innerHTML = "";
+      prompts.forEach((text, i) => {
+        const box = document.createElement("div");
+        box.className = "prompt-box";
+        box.innerHTML = `<div style="white-space: pre-wrap;">${text}</div>`;
+        const btn = document.createElement("button");
+        btn.className = "copy-btn";
+        btn.textContent = "복사하기";
+        btn.onclick = () => {
+          navigator.clipboard.writeText(text).then(() => alert("복사되었습니다!"));
+        };
+        box.appendChild(btn);
+        main.appendChild(box);
       });
     }
   </script>
 </body>
 </html>
-
