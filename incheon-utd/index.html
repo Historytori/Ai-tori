@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인천UTD 서포터즈 과정</title>
+  <link rel="stylesheet" href="../style.css"> <!-- 필요 시 외부 CSS 연결 -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Freesentation', sans-serif;
+      background-color: #f2f2f2;
+    }
+    .layout {
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 300px;
+      background-color: #e5f0f8;
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+    }
+    .sidebar h3 {
+      margin-bottom: 10px;
+      color: #1d4b7b;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+    .sidebar li {
+      margin-bottom: 6px;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    .sidebar li:hover {
+      text-decoration: underline;
+    }
+    .sidebar li.active {
+      background-color: #c9e6ff;
+      font-weight: bold;
+    }
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow-y: auto;
+    }
+    .main-content img {
+      max-width: 300px;
+      opacity: 0.8;
+      display: block;
+      margin: 0 auto;
+    }
+    .prompt-box {
+      width: 100%;
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #1d4b7b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="sidebar">
+      <h3>✓ 생성AI 사이트</h3>
+      <ul>
+        <li onclick="showLinks()">• 바로가기 링크</li>
+      </ul>
+      <h3>3. ChatGPT 심화</h3>
+      <ul>
+        <li onclick="showPrompts()">• 응원가 만들기</li>
+      </ul>
+    </div>
+    <div class="main-content">
+      <img src="../IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
+      <div id="prompt-container" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    function showLinks() {
+      const container = document.getElementById('prompt-container');
+      const image = document.getElementById('default-image');
+      container.innerHTML = `
+        <div class="prompt-box">
+          <ul style="line-height: 1.8;">
+            <li><a href="https://chatgpt.com/" target="_blank">1. ChatGPT(대화형AI)</a></li>
+            <li><a href="https://copilot.cloud.microsoft/" target="_blank">2. Copilot</a></li>
+            <li><a href="https://gemini.google.com/" target="_blank">3. Gemini</a></li>
+          </ul>
+        </div>
+      `;
+      image.style.display = 'none';
+      container.style.display = 'block';
+    }
+
+    function showPrompts() {
+      const prompts = [
+        "축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. 목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.",
+        "Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm",
+        "키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사"
+      ];
+      const container = document.getElementById('prompt-container');
+      const image = document.getElementById('default-image');
+      container.innerHTML = '';
+      prompts.forEach((text, index) => {
+        const box = document.createElement('div');
+        box.className = 'prompt-box';
+        box.innerHTML = `
+          <div style="white-space: pre-wrap;">${text}</div>
+          <button onclick="copyPrompt(${index})">복사하기</button>
+        `;
+        container.appendChild(box);
+      });
+      image.style.display = 'none';
+      container.style.display = 'block';
+    }
+
+    function copyPrompt(index) {
+      const prompts = [
+        "축구 구단 인천유나이티드의 응원가를 만들려고 해...",
+        "Style : 1980s Italian disco...",
+        "키워드 : 서해 바다, 파랑검정..."
+      ];
+      navigator.clipboard.writeText(prompts[index]).then(() => {
+        alert("프롬프트가 복사되었습니다!");
+      });
+    }
+  </script>
+</body>
+</html>
 
