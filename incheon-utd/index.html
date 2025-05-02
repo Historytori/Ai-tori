@@ -7,33 +7,16 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
     body { display: flex; height: 100vh; background-color: #f2f2f2; }
-    .sidebar {
-      width: 300px; background-color: #e5f0f8; padding: 20px; overflow-y: auto; border-right: 1px solid #ccc;
-    }
+    .sidebar { width: 300px; background-color: #e5f0f8; padding: 20px; overflow-y: auto; border-right: 1px solid #ccc; }
     .sidebar h3 { margin: 20px 0 10px; color: #1d4b7b; }
     .sidebar ul { list-style: none; padding-left: 15px; margin-bottom: 20px; }
-    .sidebar li {
-      margin-bottom: 6px; cursor: pointer; padding: 6px; border-radius: 4px;
-    }
+    .sidebar li { margin-bottom: 6px; cursor: pointer; padding: 6px; border-radius: 4px; }
     .sidebar li:hover { background-color: #d1ecff; }
-    .sidebar li.active {
-      background-color: #c9e6ff; font-weight: bold;
-    }
-    .main-content {
-      flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; align-items: flex-start; position: relative;
-    }
-    .main-content img#default-image {
-      max-width: 300px; margin: 80px auto; display: block; opacity: 0.85;
-    }
-    .prompt-box {
-      background-color: white; border-radius: 8px; box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-      padding: 20px; margin-bottom: 20px; width: 100%; position: relative; user-select: none; line-height: 1.6; white-space: pre-wrap;
-    }
-    .copy-btn {
-      position: absolute; top: 20px; right: 20px; width: 80px; height: 80px;
-      background-color: #1e90ff; color: white; border: none; border-radius: 8px;
-      font-weight: bold; cursor: pointer; font-size: 14px;
-    }
+    .sidebar li.active { background-color: #c9e6ff; font-weight: bold; }
+    .main-content { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; align-items: flex-start; position: relative; }
+    .main-content img#default-image { max-width: 300px; margin: 80px auto; display: block; opacity: 0.85; }
+    .prompt-box { background-color: white; border-radius: 8px; box-shadow: 0 0 4px rgba(0, 0, 0, 0.1); padding: 20px; margin-bottom: 20px; width: 100%; position: relative; user-select: none; line-height: 1.6; white-space: pre-wrap; }
+    .copy-btn { position: absolute; top: 20px; right: 20px; width: 80px; height: 80px; background-color: #1e90ff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; }
     .prompt-box a { color: #007bff; text-decoration: none; }
     .prompt-box a:hover { text-decoration: underline; }
     .prompt-box ul { padding-left: 1em; margin: 0; line-height: 1.4; }
@@ -42,140 +25,175 @@
 <body>
   <div class="sidebar" id="sidebar"></div>
   <div class="main-content" id="main-content">
-    <img src="../IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
+    <img src="IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
     <div id="prompt-container" style="width: 100%;"></div>
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const sidebar = document.getElementById("sidebar");
-      const main = document.getElementById("main-content");
       const promptContainer = document.getElementById("prompt-container");
       const defaultImage = document.getElementById("default-image");
 
       const structure = {
-  "✓ 생성AI 사이트": {
-    "바로가기 링크": [`<ul>
-      <li>1. ChatGPT(대화형AI) <a href='https://chatgpt.com/' target='_blank'>https://chatgpt.com/</a></li>
-      <li>2. Copilot(대화형AI) <a href='https://copilot.cloud.microsoft/' target='_blank'>https://copilot.cloud.microsoft/</a></li>
-      <li>3. Gemini(대화형AI) <a href='https://gemini.google.com/' target='_blank'>https://gemini.google.com/</a></li>
-      <li>4. Grok(대화형AI) <a href='https://grok.com/' target='_blank'>https://grok.com/</a></li>
-      <li>5. Felo(대화형AI) <a href='https://felo.ai/ko/' target='_blank'>https://felo.ai/ko/</a></li>
-      <li>6. 뤼튼(대화형AI) <a href='https://wrtn.ai/' target='_blank'>https://wrtn.ai/</a></li>
-      <li>7. Ideogram(이미지AI) <a href='https://ideogram.ai/' target='_blank'>https://ideogram.ai/</a></li>
-      <li>8. GoogleFX(이미지AI) <a href='https://labs.google/fx/ko/' target='_blank'>https://labs.google/fx/ko/</a></li>
-      <li>9. Bing Image Creator(이미지AI) <a href='https://www.bing.com/images/create' target='_blank'>https://www.bing.com/images/create</a></li>
-      <li>10. Lilys(요약형AI) <a href='https://lilys.ai/' target='_blank'>https://lilys.ai/</a></li>
-      <li>11. Daglo(녹음요약AI) <a href='https://daglo.ai/' target='_blank'>https://daglo.ai/</a></li>
-      <li>12. Youtube(영상소스) <a href='https://www.youtube.com/' target='_blank'>https://www.youtube.com/</a></li>
-      <li>13. NapkinAI(도식화AI) <a href='https://www.napkin.ai/' target='_blank'>https://www.napkin.ai/</a></li>
-      <li>14. Autodraw(밑그림AI) <a href='https://www.autodraw.com/' target='_blank'>https://www.autodraw.com/</a></li>
-      <li>15. GammaAI(발표자료AI) <a href='https://gamma.app/ko/' target='_blank'>https://gamma.app/ko/</a></li>
-      <li>16. HeyGen(딥페이크AI) <a href='https://www.heygen.com/' target='_blank'>https://www.heygen.com/</a></li>
-      <li>17. Suno(음악AI) <a href='https://suno.com/home/' target='_blank'>https://suno.com/home/</a></li>
-    </ul>`],
-    "실습파일 다운로드": [`<a href='https://github.com/yourusername/yourrepo/raw/main/인천UTD_서포터즈_실습파일.zip' download>인천UTD_서포터즈_실습파일</a>`]
-  },
-  "1. 생성AI 개요": {
-    "Napkin AI 실습": ["축구를 잘하는 방법을 설명해 줘."],
-    "감마 실습": ["지금 업로드한 pdf로 ppt를 만들려고 해.
-pdf를 8페이지 분량으로 구조화해서 요약해 줘.
-출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘."]
-  },
-  "2. ChatGPT 실습": {
-    "프롬프트 구성": ["넌 인하대 대학병원 외과 의사야! ..."],
-    "전략 수립": [
-      `너는 프랜차이즈 컨설턴트야.
-      나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고 해.
-      축구 경기 때문에 주말에 유동 인구가 많고, 주변에 아파트가 많아.
-      비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
-      그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`
-    ],
-    "그림 그리기1(이미지 생성)": [
-      `다음 내용으로 이미지를 생성해 줘.
-      - 이미지 : 인천축구전용경기장을 배경으로 바다가 보여.
-        경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어,
-        바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어.
-        인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이
-        환하게 웃으며 팬들을 환영하고 있어.
-      - 스타일 : 리얼리스틱
-      - 비율 : 16:9
-      갈매기를 두루미(학)로 바꿔줘.`
-    ],
-    "그림 그리기2(웹툰 만들기)": [
-      `축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.
-      위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.
-      게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을
-      한국 스타일의 웹툰으로 그려줘.`
-    ],
-    "그림 그리기3(포스터 만들기)": [
-      `첨부한 사진은 영화<비상>의 포스터야.
-      2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를
-      심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야.
-      포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어.
-      팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘.
-      파란 색감의 일러스트를 포함해 줘.`
-    ],
-    "그림 그리기4(이미지 합성하기)": [
-      `첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야.
-      이 두 이미지를 정확하게 관찰해서,
-      인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`
-    ],
-    "GPTs 활용 - 마인드맵 그리기": [
-      `이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어.
-      이번 주말에 축구 볼 겸, 여행 겸 부산에 가려고 하는데
-      1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘.`
-    ],
-    "GPTs 만들기 - 삼행시 추천": ["인천유나이티드 삼행시 추천봇
-행사 분위기를 입력하면 삼행시를 추천해줍니다. ..."]
-  },
-  "3. ChatGPT 심화": {
-    "굿즈 만들기": [
-      `인천유나이티드 굿즈 디자인 (머플러, 핸드폰케이스, 키링, 응원봉, 텀블러)을 보여줘.
-      이어서 양말 세트를 디자인해줘.
-      색상은 흰색, 검은색, 파란색을 사용하고 숫자 '03'이 포함되면 좋겠어.`
-    ],
-    "이모티콘 만들기": [
-      `첨부된 사진의 인물을 바탕으로 2025 인천유나이티드 유니폼을 입은 이모티콘 캐릭터를 만들어줘.
-      다양한 감정 상태(16가지), 각도(전면, 측면 등), 만화적인 표현이 포함되었으면 좋겠어.`
-    ],
-    "액션 피규어 만들기": [
-      `무고사의 사진을 바탕으로 액션 피규어 세트를 만들어줘.
-      구성은 캐릭터, 4~5개 액세서리, 바탕 종이, 투명 PVC 케이스로 해줘.
-      실제로 출시되는 제품처럼 구성하고 디자인해줘.`
-    ],
-    "자료조사와 요약": [
-      `인천유나이티드의 전망에 관한 최신 기사나 자료를 10건 찾아 요약해줘.
-      그 내용을 바탕으로 키워드를 마인드맵 형식으로 정리해줘.
-      이어서 '인천유나이티드의 전망'이라는 제목으로 1분 길이의 음성 콘텐츠를 만들어줘.
-      multilingual 기능을 사용해 다양한 언어로도 제공 가능하게 해줘.`
-    ],
-    "응원가 만들기": [
-      `축구 구단 인천유나이티드의 응원가를 만들려고 해.
-      대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해.
-      목소리는 젊은 남자의 목소리로 해줘.
-      Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm
-      설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines.
-      Suno에 입력할 프롬프트를 위 형식으로 만들어줘.
-      그리고 해당 느낌을 학습해서 가사를 써줘.
-      인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게.
-      키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사.`
-    ]
-  },
-  "4. 기타": {
-    "테트리스 만들기": [
-      `HTML과 자바스크립트로 작동하는 웹용 테트리스 게임을 만들어줘.
-      기본 기능은 다음과 같아:
-      - 다양한 모양의 블록 생성 및 회전 기능
-      - 좌우 이동 및 하강 기능
-      - 바닥 또는 다른 블록과 충돌 시 고정
-      - 한 줄이 가득 차면 제거되고 점수 획득
-      - 다음에 나올 블록을 미리 보여주는 기능
-      - 점수와 레벨 시스템 포함
-      - 스페이스 바로 블록을 빠르게 낙하시키는 기능
-      UI는 단순하지만 색감은 다양하게 표현해줘.`
-    ]
-  }
-};
+        "✓ 생성AI 사이트": {
+        "바로가기 링크": [
+          `<ul style="line-height: 1.6;">
+            <li>1. ChatGPT(대화형AI) <a href='https://chatgpt.com/' target='_blank' style='color: #007bff;'>https://chatgpt.com/</a></li>
+            <li>2. Copilot(대화형AI) <a href='https://copilot.cloud.microsoft/' target='_blank' style='color: #007bff;'>https://copilot.cloud.microsoft/</a></li>
+            <li>3. Gemini(대화형AI) <a href='https://gemini.google.com/' target='_blank' style='color: #007bff;'>https://gemini.google.com/</a></li>
+            <li>4. Grok(대화형AI) <a href='https://grok.com/' target='_blank' style='color: #007bff;'>https://grok.com/</a></li>
+            <li>5. Felo(대화형AI) <a href='https://felo.ai/ko/' target='_blank' style='color: #007bff;'>https://felo.ai/ko/</a></li>
+            <li>6. 뤼튼(대화형AI) <a href='https://wrtn.ai/' target='_blank' style='color: #007bff;'>https://wrtn.ai/</a></li>
+            <li>7. Ideogram(이미지AI) <a href='https://ideogram.ai/' target='_blank' style='color: #007bff;'>https://ideogram.ai/</a></li>
+            <li>8. GoogleFX(이미지AI) <a href='https://labs.google/fx/ko/' target='_blank' style='color: #007bff;'>https://labs.google/fx/ko/</a></li>
+            <li>9. Bing Image Creator(이미지AI) <a href='https://www.bing.com/images/create' target='_blank' style='color: #007bff;'>https://www.bing.com/images/create</a></li>
+            <li>10. Lilys(요약형AI) <a href='https://lilys.ai/' target='_blank' style='color: #007bff;'>https://lilys.ai/</a></li>
+            <li>11. Daglo(녹음요약AI) <a href='https://daglo.ai/' target='_blank' style='color: #007bff;'>https://daglo.ai/</a></li>
+            <li>12. Youtube(영상소스) <a href='https://www.youtube.com/' target='_blank' style='color: #007bff;'>https://www.youtube.com/</a></li>
+            <li>13. NapkinAI(도식화AI) <a href='https://www.napkin.ai/' target='_blank' style='color: #007bff;'>https://www.napkin.ai/</a></li>
+            <li>14. Autodraw(밑그림AI) <a href='https://www.autodraw.com/' target='_blank' style='color: #007bff;'>https://www.autodraw.com/</a></li>
+            <li>15. GammaAI(발표자료AI) <a href='https://gamma.app/ko/' target='_blank' style='color: #007bff;'>https://gamma.app/ko/</a></li>
+            <li>16. HeyGen(딥페이크AI) <a href='https://www.heygen.com/' target='_blank' style='color: #007bff;'>https://www.heygen.com/</a></li>
+            <li>17. Suno(음악AI) <a href='https://suno.com/home/' target='_blank' style='color: #007bff;'>https://suno.com/home/</a></li>
+          </ul>`
+        ],
+        "실습파일 다운로드": [
+          `<a href='https://github.com/yourusername/yourrepo/raw/main/인천UTD_서포터즈_실습파일.zip' download>인천UTD_서포터즈_실습파일</a>`
+        ]
+      },
+
+      "1. 생성AI 개요": {
+        "Napkin AI 실습": [
+          `축구를 잘하는 방법을 설명해 줘.`
+        ],
+        "감마 실습": [
+          `지금 업로드한 pdf로 ppt를 만들려고 해.
+          pdf를 8페이지 분량으로 구조화해서 요약해 줘.
+          출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`
+        ]
+      },
+
+      "2. ChatGPT 실습": {
+        "프롬프트 구성": [
+          `넌 인하대 대학병원 외과 의사야!
+          나는 축구를 하다가 발목을 접질렀어. 발목이 부어있고 열감이 있어.
+          규칙적인 재활과 평소 운동습관을 개선해야 하는데,
+          너무 많은 정보들로 인해 어떻게 해야 할 지 모르겠어.
+          전문가 입장에서 재활을 어떻게 해야 하는지, 발목을 접지르지 않기 위해서
+          평소 운동을 어떻게 해야 하는지 표로 작성해줄래?`
+        ],
+        "전략 수립": [
+          `너는 프랜차이즈 컨설턴트야.
+          나는 인천광역시 중구 도원동 인천축구전용경기장 근처에 치킨집을 오픈하려고 해.
+          축구 경기 때문에 주말에 유동 인구가 많고, 주변에 아파트가 많아.
+          비즈니스 모델 캔버스를 활용해서 사업모델을 만들어 줄래?
+          그리고 AIDA 프레임워크를 활용해서 위 사업의 광고 문구를 제작해 줘.`
+        ],
+        "그림 그리기1(이미지 생성)": [
+          `다음 내용으로 이미지를 생성해 줘.
+          - 이미지 : 인천축구전용경기장을 배경으로 바다가 보여.
+            경기장에는 인천유나이티드 축구팀을 의미하는 'IUFC'라는 간판이 달려있어,
+            바다에는 큰 배가 보이고 갈매기가 3마리가 날아가고 있어.
+            인천유나이티드의 유니폼을 입고 있는 한국의 남자 아이돌 1명, 여자 아이돌 1명이
+            환하게 웃으며 팬들을 환영하고 있어.
+          - 스타일 : 리얼리스틱
+          - 비율 : 16:9
+          갈매기를 두루미(학)로 바꿔줘.`
+        ],
+        "그림 그리기2(웹툰 만들기)": [
+          `축구 전술 중 하나인 '게겐프레싱'에 대해 간단하게 설명해줘.
+          위 내용으로 웹툰을 만들어서 축구팬들에게 알려주고 싶어.
+          게겐프레싱 전술 설명, 장점, 단점, 대표적인 구단 4가지 사항이 들어간 내용을
+          한국 스타일의 웹툰으로 그려줘.`
+        ],
+        "그림 그리기3(포스터 만들기)": [
+          `첨부한 사진은 영화<비상>의 포스터야.
+          2005년 K리그 플레이오프 준우승을 기록한 인천유나이티드의 이야기를
+          심층적으로 담은 다큐멘터리 영화이자 한국 최초의 스포츠 다큐멘터리야.
+          포스터의 해상도가 낮고 낡아서 새로운 이미지로 만들고 싶어.
+          팬들에게 친근하게 내용을 전달할 수 있도록 포스터로 만들어 줘.
+          파란 색감의 일러스트를 포함해 줘.`
+        ],
+        "그림 그리기4(이미지 합성하기)": [
+          `첨부한 사진은 유명 축구선수 손흥민과 2025년 인천유나이티드 홈 유니폼이야.
+          이 두 이미지를 정확하게 관찰해서,
+          인천유나이티드 홈 유니폼을 입고 있는 손흥민으로 합성해줘.`
+        ],
+        "GPTs 활용 - 마인드맵 그리기": [
+          `이번 주 일요일 16시 30분에 인천유나이티드 대 부산아이파크의 축구 경기가 있어.
+          이번 주말에 축구 볼 겸, 여행 겸 부산에 가려고 하는데
+          1박 2일 여행에 필요한 항목을 도출하고 마인드맵으로 그려줘.`
+        ],
+        "GPTs 만들기 - 삼행시 추천": [
+          `인천유나이티드 삼행시 추천봇
+          행사 분위기를 입력하면 삼행시를 추천해줍니다.
+          # 역할
+          너는 인천유나이티드의 다양한 행사에서 사람들을 행복하게 만들 수 있는 삼행시를 작성해야 해
+          # 지침
+          1. 사용자가 특별한 정보를 입력하지 않을 경우 사용자에게 아래와 같은 내용을 정중하게 질문해줘
+            - 행사의 성격 및 분위기, 참석자 유형
+          2. 사람들이 행복하고 즐거워 할 수 있는 삼행시를 5건 만들어줘
+          3. 삼행시는 출력의 예시처럼, 삼행시의 앞글자를 모으면 하나의 단어가 되야 해
+          4. 각 줄은 40자 이상으로 풍성하고, 감동 또는 재치가 담겨 있어야 해.
+          5. 감정을 울리는 따뜻한 문장과, 웃음을 유발하는 재치 있는 표현을 조화롭게 담아줘.
+          6. 삼행시는 의미가 있는 3~4 단어로 만들어줘
+          7. 삼행시뿐만 아니라, 사행시부터 구행시까지 요구하는 단어 글자 수만큼 만들어줘.
+          # 출력
+          1. 삼행시 예시:
+            무: 무더운 여름에도, 추운 겨울에도 꿋꿋하게 달린 그대여,
+            고: 고난 속에서도 빛났던 인천의 자랑!
+            사: 사랑해요, 우리의 영웅 무고사!
+            마: 마라톤보다 힘들다는 인천 원정
+            계: 계획 다 세워도 여기 오면 무너짐
+            인: 인상 팍 쓴채로 돌아가는 원정팀들
+            천: 천하무적 인천
+          2. 시각적으로 구분되도록 줄바꿈을 활용해 읽기 편하게 정리해줘.
+          3. 각 삼행시는 특정 단어의 앞 글자를 따서 구성해. 해당 단어는 맨 앞에 **굵게(볼드체)**로 표시하고, 각 줄의 앞글자도 굵게 표시해줘.
+          경기 승리 기념 회식에서 쓸 삼행시를 알려줘.
+          경기 시작 전 팬들에게 힘을 불어넣어 줄 삼행시를 알려줘.`
+        ]
+      },
+
+      "3. ChatGPT 심화": {
+        "굿즈 만들기": [
+          `인천유나이티드 굿즈 디자인 (머플러, 핸드폰케이스, 키링, 응원봉, 텀블러)을 보여줘.
+          이어서 양말 세트를 디자인해줘.
+          색상은 흰색, 검은색, 파란색을 사용하고 숫자 '03'이 포함되면 좋겠어.`
+        ],
+        "이모티콘 만들기": [
+          `첨부된 사진의 인물을 바탕으로 2025 인천유나이티드 유니폼을 입은 이모티콘 캐릭터를 만들어줘.
+          다양한 감정 상태(16가지), 각도(전면, 측면 등), 만화적인 표현이 포함되었으면 좋겠어.`
+        ],
+        "액션 피규어 만들기": [
+          `무고사의 사진을 바탕으로 액션 피규어 세트를 만들어줘.
+          구성은 캐릭터, 4~5개 액세서리, 바탕 종이, 투명 PVC 케이스로 해줘.
+          실제로 출시되는 제품처럼 구성하고 디자인해줘.`
+        ],
+        "자료조사와 요약": [
+          `인천유나이티드의 전망에 관한 최신 기사나 자료를 10건 찾아 요약해줘.
+          그 내용을 바탕으로 키워드를 마인드맵 형식으로 정리해줘.
+          이어서 '인천유나이티드의 전망'이라는 제목으로 1분 길이의 음성 콘텐츠를 만들어줘.
+          multilingual 기능을 사용해 다양한 언어로도 제공 가능하게 해줘.`
+        ],
+        "응원가 만들기": [
+          `축구 구단 인천유나이티드의 응원가를 만들려고 해.
+          대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해.
+          목소리는 젊은 남자의 목소리로 해줘.
+          Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm
+          설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic with warm chords and anthemic chorus lines.
+          Suno에 입력할 프롬프트를 위 형식으로 만들어줘.
+          그리고 해당 느낌을 학습해서 가사를 써줘.
+          인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게.
+          키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사.`
+        ]
+      },
+
+      "4. 기타": {
+          "테트리스 만들기": [
+            `HTML과 자바스크립트로 작동하는 웹용 테트리스 게임을 만들어줘.\n기본 기능은 다음과 같아:\n- 다양한 모양의 블록 생성 및 회전 기능\n- 좌우 이동 및 하강 기능\n- 바닥 또는 다른 블록과 충돌 시 고정\n- 한 줄이 가득 차면 제거되고 점수 획득\n- 다음에 나올 블록을 미리 보여주는 기능\n- 점수와 레벨 시스템 포함\n- 스페이스 바로 블록을 빠르게 낙하시키는 기능\nUI는 단순하지만 색감은 다양하게 표현해줘.`
+          ]
+        }
+      };
 
       for (const category in structure) {
         const h3 = document.createElement("h3");
@@ -186,7 +204,7 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘.
           const li = document.createElement("li");
           li.textContent = `• ${sub}`;
           li.addEventListener("click", () => {
-            document.querySelectorAll(".sidebar li").forEach((el) => el.classList.remove("active"));
+            document.querySelectorAll(".sidebar li").forEach(el => el.classList.remove("active"));
             li.classList.add("active");
             showPrompt(category, sub);
           });
@@ -199,7 +217,6 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘.
         const prompts = structure[category][sub];
         promptContainer.innerHTML = "";
         defaultImage.style.display = "none";
-
         prompts.forEach((text) => {
           const box = document.createElement("div");
           box.className = "prompt-box";
