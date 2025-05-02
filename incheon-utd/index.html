@@ -49,6 +49,14 @@
       flex: 1;
       padding: 30px;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .main-content img {
+      max-width: 300px;
+      margin: 0 auto;
+      opacity: 0.9;
     }
     .prompt-box {
       background-color: white;
@@ -73,43 +81,48 @@
       border-radius: 8px;
       cursor: pointer;
     }
+    a {
+      color: #1d4b7b;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="sidebar" id="sidebar"></div>
   <div class="main-content" id="main-content">
-    <p>좌측 카테고리를 선택해주세요.</p>
+    <img src="../IUFC.png" alt="인천유나이티드 엠블럼" id="default-image">
+    <div id="prompt-container" style="width: 100%;"></div>
   </div>
-
-  <script>
+<script>
     const structure = {
       "✓ 생성AI 사이트": {
-        "바로가기 링크": [
-          `1. ChatGPT(대화형AI) https://chatgpt.com/`,
-          `2. Copilot(대화형AI) https://copilot.cloud.microsoft/`,
-          `3. Gemini(대화형AI) https://gemini.google.com/`,
-          `4. Grok(대화형AI) https://grok.com/`,
-          `5. Felo(대화형AI) https://felo.ai/ko/`,
-          `6. 뤼튼(대화형AI) https://wrtn.ai/`,
-          `7. Ideogram(이미지AI) https://ideogram.ai/`,
-          `8. GoogleFX(이미지AI) https://labs.google/fx/ko/`,
-          `9. Bing Image Creator(이미지AI) https://www.bing.com/images/create`,
-          `10. Lilys(요약형AI) https://lilys.ai/`,
-          `11. Daglo(녹음요약AI) https://daglo.ai/`,
-          `12. Youtube(영상소스) https://www.youtube.com/`,
-          `13. NapkinAI(도식화AI) https://www.napkin.ai/`,
-          `14. Autodraw(밑그림AI) https://www.autodraw.com/`,
-          `15. GammaAI(발표자료AI) https://gamma.app/ko/`,
-          `16. HeyGen(딥페이크AI) https://www.heygen.com/`,
-          `17. Suno(음악AI) https://suno.com/home/`
-        ],
-        "실습파일 다운로드": [
-          `실습파일 다운로드(github에 '실습파일 다운로드'라는 이름의 Zip 파일 첨부해두었음)`
-        ]
+        "바로가기 링크": [`<ul style='line-height:1.8'>
+          <li><a href='https://chatgpt.com/' target='_blank'>1. ChatGPT(대화형AI)</a></li>
+          <li><a href='https://copilot.cloud.microsoft/' target='_blank'>2. Copilot(대화형AI)</a></li>
+          <li><a href='https://gemini.google.com/' target='_blank'>3. Gemini(대화형AI)</a></li>
+          <li><a href='https://grok.com/' target='_blank'>4. Grok(대화형AI)</a></li>
+          <li><a href='https://felo.ai/ko/' target='_blank'>5. Felo(대화형AI)</a></li>
+          <li><a href='https://wrtn.ai/' target='_blank'>6. 뤼튼(대화형AI)</a></li>
+          <li><a href='https://ideogram.ai/' target='_blank'>7. Ideogram(이미지AI)</a></li>
+          <li><a href='https://labs.google/fx/ko/' target='_blank'>8. GoogleFX(이미지AI)</a></li>
+          <li><a href='https://www.bing.com/images/create' target='_blank'>9. Bing Image Creator(이미지AI)</a></li>
+          <li><a href='https://lilys.ai/' target='_blank'>10. Lilys(요약형AI)</a></li>
+          <li><a href='https://daglo.ai/' target='_blank'>11. Daglo(녹음요약AI)</a></li>
+          <li><a href='https://www.youtube.com/' target='_blank'>12. Youtube(영상소스)</a></li>
+          <li><a href='https://www.napkin.ai/' target='_blank'>13. NapkinAI(도식화AI)</a></li>
+          <li><a href='https://www.autodraw.com/' target='_blank'>14. Autodraw(밑그림AI)</a></li>
+          <li><a href='https://gamma.app/ko/' target='_blank'>15. GammaAI(발표자료AI)</a></li>
+          <li><a href='https://www.heygen.com/' target='_blank'>16. HeyGen(딥페이크AI)</a></li>
+          <li><a href='https://suno.com/home/' target='_blank'>17. Suno(음악AI)</a></li>
+        </ul>`],
+        "실습파일 다운로드": [`<a href='https://github.com/yourname/yourrepo/raw/main/인천UTD_서포터즈_실습파일.zip' download>인천UTD_서포터즈_실습파일</a>`]
       },
       "1. 생성AI 개요": {
         "Napkin AI 실습": [`축구를 잘하는 방법을 설명해 줘.`],
-        "감마 실습": [`지금 업로드한 pdf로 ppt를 만들려고해, pdf를 8페이지 분량으로 구조화해서 요약해 줘. 출력시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`]
+        "감마 실습": [`지금 업로드한 pdf로 ppt를 만들려고 해. pdf를 8페이지 분량으로 구조화해서 요약해 줘. 출력 시 문장의 어미는 '~임, ~함, ~증가, ~확대' 등과 같이 간결하게 작성해 줘.`]
       },
       "2. ChatGPT 실습": {
         "프롬프트 구성": [`넌 인하대 대학병원 외과 의사야! 나는 축구를 하다가 발목을 접질렀어...`],
@@ -122,32 +135,22 @@
         "GPTs 만들기 - 삼행시 추천": [`인천유나이티드 삼행시를 사용자 입력에 맞게 추천하는 챗봇 역할로 구성.`]
       },
       "3. ChatGPT 심화": {
-        "굿즈 만들기": [
-          `인천유나이티드 굿즈 디자인 (머플러, 핸드폰케이스, 키링, 응원봉, 텀블러)을 보여줘. 이어서 양말 세트를 디자인해줘. 색상은 흰색, 검은색, 파란색, 숫자 '03' 포함.`
-        ],
-        "이모티콘 만들기": [
-          `첨부된 사진의 인물을 바탕으로 2025 인천유나이티드 유니폼을 입은 이모티콘 캐릭터를 만들어줘. 다양한 감정 상태(16가지), 각도(전면, 측면 등), 만화적인 표현 포함.`,
-          `MBTI 16유형별 감정, 표정, 행동을 담은 액션 이모티콘 캐릭터 시트 작성.`
-        ],
-        "액션 피규어 만들기": [
-          `무고사의 사진을 바탕으로 액션 피규어 세트를 만들어줘. 구성은 캐릭터, 4~5개 액세서리, 바탕 종이, 투명 PVC 케이스로 하고, 디자인은 실상품처럼 구성해줘.`
-        ],
-        "자료조사와 요약": [
-          `인천유나이티드의 전망에 관한 최신 기사/자료 10건을 찾아 요약하고, 키워드를 마인드맵으로 정리한 후, 제목 '인천유나이티드의 전망'으로 1분 길이의 음원으로 변환해줘. multilingual 기능 사용.`
-        ],
-        "응원가 만들기": [
-          `대구 FC의 '그 겨울'처럼 경쾌한 느낌의 응원가를 Suno를 통해 만들고 싶어. Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm. 가사 키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사.`
-        ]
+        "굿즈 만들기": [`인천유나이티드 굿즈 디자인 (머플러, 핸드폰케이스, 키링, 응원봉, 텀블러)을 보여줘. 이어서 양말 세트를 디자인해줘. 색상은 흰색, 검은색, 파란색, 숫자 '03' 포함.`],
+        "이모티콘 만들기": [`첨부된 사진의 인물을 바탕으로 2025 인천유나이티드 유니폼을 입은 이모티콘 캐릭터를 만들어줘. 다양한 감정 상태(16가지), 각도(전면, 측면 등), 만화적인 표현 포함.`],
+        "액션 피규어 만들기": [`무고사의 사진을 바탕으로 액션 피규어 세트를 만들어줘. 구성은 캐릭터, 4~5개 액세서리, 바탕 종이, 투명 PVC 케이스로 하고, 디자인은 실상품처럼 구성해줘.`],
+        "자료조사와 요약": [`인천유나이티드의 전망에 관한 최신 기사/자료 10건을 찾아 요약하고, 키워드를 마인드맵으로 정리한 후, 제목 '인천유나이티드의 전망'으로 1분 길이의 음원으로 변환해줘. multilingual 기능 사용.`],
+        "응원가 만들기": [`대구 FC의 '그 겨울'처럼 경쾌한 느낌의 응원가를 Suno를 통해 만들고 싶어. Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, stadium echo FX, retro pads, analog bassline, clapping rhythm. 가사 키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사.`]
       },
       "4. 기타": {
-        "테트리스 만들기": [
-          `HTML과 자바스크립트로 작동하는 웹용 테트리스 게임을 만들어줘. 요구 사항: 블록 회전, 이동, 컬러, 공백라인 제거, 다음 도형 표시, 점수/레벨 표시, 스페이스 바 즉시 낙하 기능 포함.`
-        ]
+        "테트리스 만들기": [`HTML과 자바스크립트로 작동하는 웹용 테트리스 게임을 만들어줘. 요구 사항: 블록 회전, 이동, 컬러, 공백라인 제거, 다음 도형 표시, 점수/레벨 표시, 스페이스 바 즉시 낙하 기능 포함.`]
       }
     };
-
+</script>
+<script>
     const sidebar = document.getElementById("sidebar");
-    const main = document.getElementById("main-content");
+    const mainContent = document.getElementById("main-content");
+    const promptContainer = document.getElementById("prompt-container");
+    const defaultImage = document.getElementById("default-image");
 
     for (const category in structure) {
       const h3 = document.createElement("h3");
@@ -160,29 +163,37 @@
         li.addEventListener("click", () => {
           document.querySelectorAll(".sidebar li").forEach(el => el.classList.remove("active"));
           li.classList.add("active");
-          renderPrompts(structure[category][sub]);
+          showPrompt(category, sub);
         });
         ul.appendChild(li);
       }
       sidebar.appendChild(ul);
     }
 
-    function renderPrompts(prompts) {
-      main.innerHTML = "";
+    function showPrompt(category, sub) {
+      const prompts = structure[category][sub];
+      promptContainer.innerHTML = "";
+      defaultImage.style.display = "none";
+
       prompts.forEach((text) => {
         const box = document.createElement("div");
         box.className = "prompt-box";
         box.innerHTML = `<div style='white-space: pre-wrap;'>${text}</div>`;
-        const btn = document.createElement("button");
-        btn.className = "copy-btn";
-        btn.textContent = "복사하기";
-        btn.onclick = () => {
-          navigator.clipboard.writeText(text).then(() => alert("복사되었습니다!"));
-        };
-        box.appendChild(btn);
-        main.appendChild(box);
+
+        // 복사 버튼은 바로가기 링크/다운로드에는 붙이지 않음
+        if (!text.includes("<ul") && !text.includes("download")) {
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "복사하기";
+          btn.onclick = () => {
+            navigator.clipboard.writeText(text).then(() => alert("복사되었습니다!"));
+          };
+          box.appendChild(btn);
+        }
+
+        promptContainer.appendChild(box);
       });
     }
-  </script>
+</script>
 </body>
 </html>
