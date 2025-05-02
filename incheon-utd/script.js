@@ -1,4 +1,4 @@
-// script.js – 좌측 클릭 시 프롬프트 출력 및 복사 기능
+// script.js – 다중 프롬프트 대응, 스타일 유지, 복사 기능 포함
 function showCategory(categoryKey) {
   const container = document.getElementById('prompt-container');
   const image = document.getElementById('default-image');
@@ -12,7 +12,7 @@ function showCategory(categoryKey) {
   const clicked = Array.from(listItems).find(item => item.dataset.key === categoryKey);
   if (clicked) clicked.classList.add('active');
 
-  // 프롬프트 출력 초기화
+  // 기존 출력 제거
   container.innerHTML = '';
 
   if (!prompts || prompts.length === 0) {
@@ -32,7 +32,7 @@ function showCategory(categoryKey) {
     });
   }
 
-  // 기본 이미지 숨기고 프롬프트 보여주기
+  // 기본 이미지 숨기고 프롬프트 보이기
   if (image) image.style.display = 'none';
   container.style.display = 'block';
 }
