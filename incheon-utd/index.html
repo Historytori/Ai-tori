@@ -3,37 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>인천UTD 서포터즈 프롬프트</title>
+  <title>생성AI 실습 프롬프트</title>
+
+  <!-- Freesentation Font 연결 -->
+  <style>
+    @font-face {
+      font-family: 'Freesentation';
+      src: url('Freesentation-4Regular.ttf') format('truetype');
+    }
+  </style>
+
   <style>
     body {
-      display: flex;
-      font-family: sans-serif;
       margin: 0;
+      display: flex;
       height: 100vh;
+      font-family: 'Freesentation', sans-serif;
+      background-color: #f9f9f9;
     }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #333;
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      padding-left: 24px;
+      z-index: 1000;
+    }
+    header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .layout {
+      display: flex;
+      width: 100%;
+      margin-top: 60px;
+    }
+
     .sidebar {
-      width: 280px;
+      width: 300px;
       background-color: #e5f0f8;
       padding: 20px;
+      box-sizing: border-box;
       overflow-y: auto;
     }
-    .sidebar li {
-      list-style: none;
-      padding: 10px;
-      margin-bottom: 6px;
-      cursor: pointer;
-      border-radius: 4px;
+
+    .sidebar h3 {
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: #333;
     }
+
+    .sidebar ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .sidebar li {
+      padding: 8px 12px;
+      margin: 4px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
     .sidebar li.active {
       background-color: #cce5ff;
       font-weight: bold;
     }
+
     .main-content {
       flex-grow: 1;
-      padding: 20px;
-      background-color: #f9f9f9;
+      padding: 24px;
       overflow-y: auto;
     }
+
     .prompt-box {
       position: relative;
       background-color: #fff;
@@ -43,6 +93,7 @@
       width: 100%;
       box-sizing: border-box;
     }
+
     .prompt-text {
       white-space: pre-wrap;
       word-break: break-word;
@@ -50,6 +101,7 @@
       margin: 0;
       padding-right: 100px;
     }
+
     .copy-button {
       position: absolute;
       top: 16px;
@@ -67,37 +119,50 @@
   </style>
 </head>
 <body>
-  <ul class="sidebar">
-    <li data-key="link" onclick="showCategory('link')">✓ 생성AI 사이트 - 바로가기 링크</li>
-    <li data-key="download" onclick="showCategory('download')">• 실습파일 다운로드</li>
-
-    <li data-key="napkin" onclick="showCategory('napkin')">• Napkin AI 실습</li>
-    <li data-key="gamma" onclick="showCategory('gamma')">• 감마 실습</li>
-
-    <li data-key="prompt" onclick="showCategory('prompt')">• 프롬프트 구성</li>
-    <li data-key="strategy" onclick="showCategory('strategy')">• 전략 수립</li>
-    <li data-key="draw1" onclick="showCategory('draw1')">• 그림 그리기1(이미지 생성)</li>
-    <li data-key="draw2" onclick="showCategory('draw2')">• 그림 그리기2(웹툰 만들기)</li>
-    <li data-key="draw3" onclick="showCategory('draw3')">• 그림 그리기3(포스터 만들기)</li>
-    <li data-key="draw4" onclick="showCategory('draw4')">• 그림 그리기4(이미지 합성하기)</li>
-    <li data-key="mindmap" onclick="showCategory('mindmap')">• GPTs 활용 - 마인드맵 그리기</li>
-    <li data-key="acrostic" onclick="showCategory('acrostic')">• GPTs 만들기 - 삼행시 추천</li>
-
-    <li data-key="goods" onclick="showCategory('goods')">• 굿즈 만들기</li>
-    <li data-key="emoji" onclick="showCategory('emoji')">• 이모티콘 만들기</li>
-    <li data-key="figure" onclick="showCategory('figure')">• 액션 피규어 만들기</li>
-    <li data-key="summary" onclick="showCategory('summary')">• 자료조사와 요약</li>
-    <li data-key="cheer" onclick="showCategory('cheer')">• 응원가 만들기</li>
-
-    <li data-key="tetris" onclick="showCategory('tetris')">• 테트리스 만들기</li>
-  </ul>
-
-  <div class="main-content">
-    <img id="default-image" src="IUFC.png" style="max-width: 200px; display:block; margin: 40px auto;">
-    <div id="prompt-container" style="display:none"></div>
+  <header>
+    <a href="https://historytori.github.io/Ai-tori/">생성AI 실습 프롬프트</a>
+  </header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h3>✓ 생성AI 사이트</h3>
+      <ul>
+        <li data-key="link" onclick="showCategory('link')">• 바로가기 링크</li>
+        <li data-key="download" onclick="showCategory('download')">• 실습파일 다운로드</li>
+      </ul>
+      <h3>1. 생성AI 개요</h3>
+      <ul>
+        <li data-key="napkin" onclick="showCategory('napkin')">• Napkin AI 실습</li>
+        <li data-key="gamma" onclick="showCategory('gamma')">• 감마 실습</li>
+      </ul>
+      <h3>2. ChatGPT 실습</h3>
+      <ul>
+        <li data-key="prompt" onclick="showCategory('prompt')">• 프롬프트 구성</li>
+        <li data-key="strategy" onclick="showCategory('strategy')">• 전략 수립</li>
+        <li data-key="draw1" onclick="showCategory('draw1')">• 그림 그리기1(이미지 생성)</li>
+        <li data-key="draw2" onclick="showCategory('draw2')">• 그림 그리기2(웹툰 만들기)</li>
+        <li data-key="draw3" onclick="showCategory('draw3')">• 그림 그리기3(포스터 만들기)</li>
+        <li data-key="draw4" onclick="showCategory('draw4')">• 그림 그리기4(이미지 합성하기)</li>
+        <li data-key="mindmap" onclick="showCategory('mindmap')">• GPTs 활용 - 마인드맵 그리기</li>
+        <li data-key="acrostic" onclick="showCategory('acrostic')">• GPTs 만들기 - 삼행시 추천</li>
+      </ul>
+      <h3>3. ChatGPT 심화</h3>
+      <ul>
+        <li data-key="goods" onclick="showCategory('goods')">• 굿즈 만들기</li>
+        <li data-key="emoji" onclick="showCategory('emoji')">• 이모티콘 만들기</li>
+        <li data-key="figure" onclick="showCategory('figure')">• 액션 피규어 만들기</li>
+        <li data-key="summary" onclick="showCategory('summary')">• 자료조사와 요약</li>
+        <li data-key="cheer" onclick="showCategory('cheer')">• 응원가 만들기</li>
+      </ul>
+      <h3>4. 기타</h3>
+      <ul>
+        <li data-key="tetris" onclick="showCategory('tetris')">• 테트리스 만들기</li>
+      </ul>
+    </nav>
+    <main class="main-content">
+      <img id="default-image" src="incheonutd_logo.png" style="max-width: 200px; display:block; margin: 40px auto;">
+      <div id="prompt-container" style="display:none"></div>
+    </main>
   </div>
-
-  <!-- 스크립트 연결 -->
   <script src="prompts.js"></script>
   <script src="script.js"></script>
 </body>
