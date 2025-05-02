@@ -1,3 +1,4 @@
+// script.js 전체 코드
 function showCategory(categoryKey) {
   const container = document.getElementById('prompt-container');
   const image = document.getElementById('default-image');
@@ -11,7 +12,7 @@ function showCategory(categoryKey) {
   const clicked = Array.from(listItems).find(item => item.dataset.key === categoryKey);
   if (clicked) clicked.classList.add('active');
 
-  // 프롬프트 출력 초기화
+  // 출력 초기화
   container.innerHTML = '';
 
   if (!prompts || prompts.length === 0) {
@@ -31,7 +32,7 @@ function showCategory(categoryKey) {
     });
   }
 
-  // 기본 이미지 숨기고 프롬프트 보이기
+  // 이미지 숨기고 프롬프트 표시
   if (image) image.style.display = 'none';
   container.style.display = 'block';
 }
