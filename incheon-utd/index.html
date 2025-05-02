@@ -141,4 +141,49 @@
   <script src="prompts.js"></script>
   <script src="script.js"></script>
 </body>
+<head>
+  <meta charset="UTF-8">
+  <title>프롬프트 복사 사이트</title>
+  <style>
+    .prompt-box {
+      position: relative;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+    }
+
+    .prompt-text {
+      white-space: pre-wrap;
+      word-break: break-word;
+      user-select: none;
+      font-family: inherit;
+      margin: 0;
+      padding-right: 100px; /* 복사 버튼 공간 확보 */
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 80px;
+      height: 80px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .sidebar li.active {
+      background-color: #cce5ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
 </html>
