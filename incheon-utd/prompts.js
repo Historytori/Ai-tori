@@ -21,7 +21,7 @@ const promptsData = {
   ],
 
   download: [
-    `https://github.com/your-repo/인천UTD 실습파일.zip`
+    `https://github.com/Historytori/Ai-tori/incheon-utd/인천UTD 실습파일.zip`
   ],
 
   napkin: [`축구를 잘하는 방법을 설명해 줘.`],
