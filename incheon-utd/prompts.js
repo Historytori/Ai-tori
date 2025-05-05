@@ -81,11 +81,14 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘.
 무 : 무더운 여름에도, 추운 겨울에도 꿋꿋하게 달린 그대여,
 고 : 고난 속에서도 빛났던 인천의 자랑!
 사 : 사랑해요, 우리의 영웅 무고사!
+
 마 : 마라톤보다 힘들다는 인천 원정
 계 : 계획 다 세워도 여기 오면 무너짐
 인 : 인상 팍 쓴채로 돌아가는 원정팀들
 천 : 천하무적 인천
+
 2. 시각적으로 구분되도록 줄바꿈을 활용해 읽기 편하게 정리해줘.
+
 3. 각 삼행시는 특정 단어의 앞 글자를 따서 구성해. 해당 단어는 맨 앞에 **굵게(볼드체)**로 표시하고, 각 줄의 앞글자도 굵게 표시해줘.`,
 `경기 승리 기념 회식에서 쓸 삼행시를 알려줘.`,
 `경기 시작 전 팬들에게 힘을 불어넣어 줄 삼행시를 알려줘.`],
@@ -128,16 +131,7 @@ pdf를 8페이지 분량으로 구조화해서 요약해 줘.
   cheer: [
 `축구 구단 인천유나이티드의 응원가를 만들려고 해.
 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해.
-목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.
-Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, 
-stadium echo FX, retro pads, analog bassline, clapping rhythm
-설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic 
-with warm chords and anthemic chorus lines.`,
-`축구 구단 인천유나이티드의 응원가를 만들려고 해. 대구 FC의 응원가 '그 겨울'처럼 경쾌한 느낌의 음악을 원해. Suno에 입력할 프롬프트를 첨부할게.
-"Style : 1980s Italian disco, synth-pop revival, male voice, singalong melody, 
-stadium echo FX, retro pads, analog bassline, clapping rhythm
-설명 보완용 : Inspired by Righeira's L'estate Sta Finendo, upbeat and nostalgic 
-with warm chords and anthemic chorus lines“`,
+목소리는 젊은 남자의 목소리로. 해당 내용을 반영한 Suno 프롬프트를 생성해줘.`,
 `해당 느낌을 학습해서 가사를 써줘. 인천유나이티드 응원곡에 들어갔으면 하는 단어들을 알려줄게. 마음에 드는 걸 선택해서 가사를 작성해줘.
 키워드 : 서해 바다, 파랑검정, 숭의, Allez인천, 석양, 파검의 용사`
   ],
